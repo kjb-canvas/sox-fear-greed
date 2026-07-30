@@ -13,7 +13,9 @@
 <meta property="og:description" content="__METADESC__">
 <meta property="og:url" content="__CANONICAL__">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="__OGIMG__">
+<meta name="twitter:image" content="__OGIMG__">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="__TITLE__">
 <meta name="twitter:description" content="__METADESC__">
 <script type="application/ld+json">
@@ -153,6 +155,7 @@ footer .links a:hover{text-decoration:underline;}
     </div>
     <div class="legendrow">
       <span><span class="sw" style="background:linear-gradient(90deg,var(--fear-2),#898781,var(--greed-2)); width:44px;"></span>종합지수 (0~100)</span>
+      <span id="cnnLegend" style="display:none"><span class="sw" style="background:var(--ink-1); height:2px; border-top:2px dashed var(--ink-1); background:none;"></span>CNN 실측 (전체 시장 기준, 약 1년)</span>
       <span style="color:var(--muted)">개별 지표 겹쳐 보기:</span>
     </div>
     <div class="indtoggles" id="indToggles"></div>
@@ -178,6 +181,13 @@ footer .links a:hover{text-decoration:underline;}
     <div class="tiles" id="tiles"></div>
   </div>
 
+  <div class="card" id="similar">
+    <h2>과거 유사 국면</h2>
+    <div class="desc">오늘의 구성 지표 조합과 가장 비슷했던 과거 날짜와, 그 이후의 지수 흐름 (최소 3개월 간격, 최근 3개월 제외)</div>
+    <div style="overflow-x:auto"><table class="bt" id="simTable"></table></div>
+    <div class="note">유사도는 구성 지표 점수의 평균 거리 기준입니다. 과거가 비슷했다고 미래가 반복되는 것은 아니며, 참고용입니다.</div>
+  </div>
+
   <div class="card" id="backtest">
     <h2>구간별 백테스트 — 이후 수익률</h2>
     <div class="desc">해당 구간에 있던 날 기준, 이후 20/60/120거래일 수익률 · 자산과 기간을 선택해 확인 (표본 중복 있음)</div>
@@ -185,8 +195,8 @@ footer .links a:hover{text-decoration:underline;}
     <div class="rangebar" id="btRange">
       <button data-m="3">3개월</button><button data-m="6">6개월</button><button data-m="12">1년</button><button data-m="36" class="on">3년</button><button data-m="60">5년</button><button data-m="120">10년</button><button data-m="0">전체</button>
     </div>
-    <table class="bt" id="btTable"></table>
-    <div class="note">해석 주의: 극단 구간 표본은 소수의 급락 에피소드에 몰려 있어(중복 표본) 개별 사건의 영향이 큽니다. 짧은 기간(3~6개월)은 표본이 적어 통계적 의미가 없습니다. 레버리지 ETF는 하락·횡보 구간에서 변동성 손실이 누적되므로 단순 배수 수익을 기대할 수 없습니다. 과거 수익률은 미래를 보장하지 않습니다.</div>
+    <div style="overflow-x:auto"><table class="bt" id="btTable"></table></div>
+    <div class="note">해석 주의: 에피소드 수는 해당 구간에 진입한 독립 사건의 횟수로, 표본(일)이 많아도 에피소드가 적으면 사실상 같은 사건의 반복 집계입니다. 60일 평균 최대낙폭은 진입 후 60거래일 내 겪는 평균 최저점 낙폭입니다. 짧은 기간(3~6개월)은 표본이 적어 통계적 의미가 없습니다. 레버리지 ETF는 하락·횡보 구간에서 변동성 손실이 누적되므로 단순 배수 수익을 기대할 수 없습니다. 과거 수익률은 미래를 보장하지 않습니다.</div>
   </div>
 
   <div class="card method" id="method">
@@ -201,7 +211,7 @@ __METHODLIST__
 
 <footer>
   <div class="links">
-    <a href="../">홈</a><a href="../sox/">SOX 반도체</a><a href="../nasdaq/">나스닥100</a><a href="../kospi/">코스피</a><a href="../kosdaq/">코스닥</a>
+    <a href="../">홈</a><a href="../sox/">SOX 반도체</a><a href="../nasdaq/">나스닥100</a><a href="../spx/">S&amp;P500</a><a href="../kospi/">코스피</a><a href="../kosdaq/">코스닥</a><a href="../compare/">지수 비교</a><a href="../guide-how-to-read.html">지표 읽는 법</a>
   </div>
   기준일 __LASTDATE__ · 평일 자동 갱신 · 본 지표는 참고용 심리 지표이며 투자 판단의 근거가 아닙니다.
 </footer>
@@ -337,6 +347,11 @@ function renderMain(){
   const pts = [], cvs = [];
   for(let i=i0;i<N;i++){ if(D.comp[i]==null) continue; pts.push([+xScale(i,i0,w).toFixed(1), +y(D.comp[i]).toFixed(1)]); cvs.push(D.comp[i]); }
   h += coloredSegs(pts, cvs, 2);
+  if(CFG.cnn && D.cnn){
+    let pc = "";
+    for(let i=i0;i<N;i++){ if(D.cnn[i]==null) continue; pc += (pc?"L":"M") + xScale(i,i0,w).toFixed(1) + "," + y(D.cnn[i]).toFixed(1); }
+    h += `<path d="${pc}" fill="none" stroke="var(--ink-1)" stroke-width="1.4" stroke-dasharray="5,4" opacity="0.65" stroke-linejoin="round"/>`;
+  }
   if(SEL!=null && SEL>=i0){
     const sx = xScale(SEL,i0,w).toFixed(1);
     h += `<line x1="${sx}" x2="${sx}" y1="${MP.top}" y2="${hgt-MP.bottom}" stroke="var(--ink-1)" stroke-width="1" stroke-dasharray="3,3" opacity="0.55"/>`;
@@ -350,7 +365,7 @@ function renderMain(){
   const fmt0 = v => CFG.charts[0].dp===0 ? Math.round(v).toLocaleString() : v.toFixed(CFG.charts[0].dp);
   hookTip(svg,"ovM","chM","cpM",document.getElementById("ttMain"),i0,w,(i)=>({
     y: y(D.comp[i]), col: colorFor(D.comp[i]),
-    html:`<b style="color:${colorFor(D.comp[i])}">${D.comp[i].toFixed(1)} · ${zoneOf(D.comp[i])}</b><br>${fmt(D.dates[i])}<br><span style="color:var(--muted)">${CFG.indexLabel} ${D.px[0][i]==null?"-":fmt0(D.px[0][i])} · 클릭하면 지표 분해</span>`
+    html:`<b style="color:${colorFor(D.comp[i])}">${D.comp[i].toFixed(1)} · ${zoneOf(D.comp[i])}</b>${(CFG.cnn&&D.cnn&&D.cnn[i]!=null)?` <span style=\"color:var(--muted)\">/ CNN ${D.cnn[i].toFixed(0)}</span>`:""}<br>${fmt(D.dates[i])}<br><span style="color:var(--muted)">${CFG.indexLabel} ${D.px[0][i]==null?"-":fmt0(D.px[0][i])} · 클릭하면 지표 분해</span>`
   }), (i)=>{ SEL = i; renderMain(); renderTiles(i); });
 }
 
@@ -414,6 +429,7 @@ function renderTiles(idx){
 }
 document.getElementById("tileReset").addEventListener("click", ()=>{ SEL=null; renderMain(); renderTiles(last); });
 
+if (CFG.cnn && D.cnn) document.getElementById("cnnLegend").style.display = "";
 /* ---- indicator toggles ---- */
 (function(){
   const el = document.getElementById("indToggles");
@@ -441,15 +457,24 @@ function computeBT(ci, i0){
   const zones = [["극단적 공포", v=>v<25],["공포", v=>v>=25&&v<45],["중립", v=>v>=45&&v<55],["탐욕", v=>v>=55&&v<75],["극단적 탐욕", v=>v>=75],["전체", v=>true]];
   return zones.map(([name, test])=>{
     const rets = {20:[], 60:[], 120:[]};
-    let n = 0;
+    const mdds = [];
+    let n = 0, ep = 0, prevIn = false;
     for(let i=i0;i<N;i++){
-      if(c[i]==null || px[i]==null || !test(c[i])) continue;
+      const inZone = c[i]!=null && px[i]!=null && test(c[i]);
+      if(inZone && !prevIn) ep++;
+      prevIn = inZone;
+      if(!inZone) continue;
       n++;
       for(const h of BT_H){ if(i+h<N && px[i+h]!=null) rets[h].push(px[i+h]/px[i]-1); }
+      if(i+60<N){
+        let mn = px[i];
+        for(let t2=i+1;t2<=i+60;t2++){ if(px[t2]!=null && px[t2]<mn) mn = px[t2]; }
+        mdds.push(mn/px[i]-1);
+      }
     }
     const mean = a => a.length ? 100*a.reduce((x,y)=>x+y,0)/a.length : null;
     const win = a => a.length ? Math.round(100*a.filter(x=>x>0).length/a.length) : null;
-    const row = {zone:name, n};
+    const row = {zone:name, n, ep, mdd: mean(mdds)};
     for(const h of BT_H){ row["m"+h] = mean(rets[h]); row["w"+h] = win(rets[h]); }
     return row;
   });
@@ -460,10 +485,10 @@ function renderBT(){
   const s = v => v==null ? "-" : (v>0?"+":"") + v.toFixed(1) + "%";
   const sw = v => v==null ? "-" : v + "%";
   document.getElementById("btTable").innerHTML =
-    `<tr><th>당시 구간</th><th>표본(일)</th><th>20일 평균</th><th>60일 평균</th><th>120일 평균</th><th>20일 상승비율</th><th>60일 상승비율</th><th>120일 상승비율</th></tr>` +
+    `<tr><th>당시 구간</th><th>표본(일 · 에피소드)</th><th>20일 평균</th><th>60일 평균</th><th>120일 평균</th><th>60일 평균 최대낙폭</th><th>20일 상승비율</th><th>60일 상승비율</th><th>120일 상승비율</th></tr>` +
     computeBT(btAsset, i0).map(r=>{
       const dot = r.zone in zv ? `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${colorFor(zv[r.zone])};margin-right:6px;"></span>` : "";
-      return `<tr><td>${dot}${r.zone}</td><td>${r.n}</td><td>${s(r.m20)}</td><td>${s(r.m60)}</td><td>${s(r.m120)}</td><td>${sw(r.w20)}</td><td>${sw(r.w60)}</td><td>${sw(r.w120)}</td></tr>`;
+      return `<tr><td>${dot}${r.zone}</td><td>${r.n} · ${r.ep}회</td><td>${s(r.m20)}</td><td>${s(r.m60)}</td><td>${s(r.m120)}</td><td>${r.mdd==null?"-":r.mdd.toFixed(1)+"%"}</td><td>${sw(r.w20)}</td><td>${sw(r.w60)}</td><td>${sw(r.w120)}</td></tr>`;
     }).join("");
 }
 (function(){
@@ -476,6 +501,37 @@ function renderBT(){
     renderBT();
   });
 })();
+/* ---- 과거 유사 국면 ---- */
+(function(){
+  const keys = CFG.tiles.map(t=>t[0]);
+  const curVec = keys.map(k=>D[k] ? D[k][last] : null);
+  const cand = [];
+  for(let i=0;i<N-63;i++){
+    let s = 0, m = 0;
+    for(let j=0;j<keys.length;j++){
+      const a = curVec[j], b = D[keys[j]] ? D[keys[j]][i] : null;
+      if(a==null || b==null) continue;
+      s += Math.abs(a-b); m++;
+    }
+    if(m >= keys.length-1) cand.push([i, s/m]);
+  }
+  cand.sort((a,b)=>a[1]-b[1]);
+  const picked = [];
+  for(const [i,d] of cand){
+    if(picked.every(([pi])=>Math.abs(pi-i)>63)) picked.push([i,d]);
+    if(picked.length>=5) break;
+  }
+  const px = D.px[0];
+  const fwd = (i,h)=> (i+h<N && px[i+h]!=null && px[i]!=null) ? (100*(px[i+h]/px[i]-1)) : null;
+  const s = v => v==null ? "-" : (v>0?"+":"") + v.toFixed(1) + "%";
+  document.getElementById("simTable").innerHTML =
+    `<tr><th>날짜</th><th>당시 지수값</th><th>유사도(거리)</th><th>이후 20일</th><th>이후 60일</th><th>이후 120일</th></tr>` +
+    picked.map(([i,d])=>{
+      const v = D.comp[i];
+      return `<tr><td>${fmt(D.dates[i])}</td><td><span style="color:${zoneColor(v)};font-weight:600">${v.toFixed(0)} ${zoneOf(v)}</span></td><td>${d.toFixed(1)}</td><td>${s(fwd(i,20))}</td><td>${s(fwd(i,60))}</td><td>${s(fwd(i,120))}</td></tr>`;
+    }).join("");
+})();
+
 document.getElementById("btRange").addEventListener("click", e=>{
   if(e.target.tagName!=="BUTTON") return;
   btMonths = +e.target.dataset.m;
@@ -494,6 +550,10 @@ renderTiles(last);
 renderBT();
 renderMain(); renderPrices();
 window.addEventListener("resize",()=>{ renderMain(); renderPrices(); });
+</script>
+<script>
+const GOAT = ""; // GoatCounter 코드 (예: "kjb") 설정 시 방문 통계 활성화
+if (GOAT) { const s = document.createElement("script"); s.dataset.goatcounter = `https://${GOAT}.goatcounter.com/count`; s.src = "//gc.zgo.at/count.js"; s.async = true; document.body.appendChild(s); }
 </script>
 </body>
 </html>

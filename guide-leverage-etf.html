@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>레버리지 ETF와 변동성 드래그 — 3배가 3배가 아닌 이유 — 공포탐욕지수 시리즈</title>
+<meta name="description" content="SOXL, TQQQ, KODEX 레버리지 같은 레버리지 ETF가 장기 보유에서 지수 배수만큼 오르지 못하는 이유(변동성 드래그)를 백테스트 수치와 함께 설명합니다.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kjb-canvas.github.io/sox-fear-greed/guide-leverage-etf.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="레버리지 ETF와 변동성 드래그 — 3배가 3배가 아닌 이유">
+<meta property="og:description" content="SOXL, TQQQ, KODEX 레버리지 같은 레버리지 ETF가 장기 보유에서 지수 배수만큼 오르지 못하는 이유(변동성 드래그)를 백테스트 수치와 함께 설명합니다.">
+<meta property="og:url" content="https://kjb-canvas.github.io/sox-fear-greed/guide-leverage-etf.html">
+<meta property="og:locale" content="ko_KR">
+<style>
+:root{ color-scheme:light; --surface-1:#fcfcfb; --page:#f9f9f7; --ink-1:#0b0b0b; --ink-2:#52514e; --muted:#898781; --border:rgba(11,11,11,0.10); }
+@media (prefers-color-scheme: dark){ :root:where(:not([data-theme="light"])){ color-scheme:dark; --surface-1:#1a1a19; --page:#0d0d0d; --ink-1:#fff; --ink-2:#c3c2b7; --border:rgba(255,255,255,0.10); } }
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif; background:var(--page); color:var(--ink-1); padding:0 0 48px;}
+.topbar{position:sticky; top:0; z-index:20; background:var(--surface-1); border-bottom:1px solid var(--border);}
+.topbar-in{max-width:760px; margin:0 auto; display:flex; align-items:center; gap:4px; padding:0 16px; height:48px; overflow-x:auto;}
+.topbar .brand{font-size:13px; font-weight:700; margin-right:12px; white-space:nowrap; color:var(--ink-1); text-decoration:none;}
+.topbar nav a{font-size:13px; color:var(--ink-2); text-decoration:none; padding:6px 11px; border-radius:8px; white-space:nowrap;}
+article{max-width:760px; margin:0 auto; padding:28px 16px 0; font-size:15px; line-height:1.85; color:var(--ink-2);}
+article h1{font-size:24px; color:var(--ink-1); margin-bottom:8px; line-height:1.4;}
+article h2{font-size:18px; color:var(--ink-1); margin:28px 0 8px;}
+article p{margin-bottom:14px;}
+article ul{margin:0 0 14px 20px;}
+article li{margin-bottom:6px;}
+article b{color:var(--ink-1);}
+.meta{font-size:12px; color:var(--muted); margin-bottom:20px;}
+.cta{background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin:24px 0; font-size:14px;}
+.cta a{color:var(--ink-1); font-weight:600;}
+footer{max-width:760px; margin:32px auto 0; padding:16px; border-top:1px solid var(--border); font-size:12px; color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <a class="brand" href="./">Fear &amp; Greed 지수 시리즈</a>
+  <nav><a href="./">홈</a><a href="./sox/">SOX</a><a href="./nasdaq/">나스닥</a><a href="./spx/">S&amp;P500</a><a href="./kospi/">코스피</a><a href="./kosdaq/">코스닥</a><a href="./compare/">비교</a></nav>
+</div></div>
+<article>
+
+<h1>레버리지 ETF와 변동성 드래그</h1>
+<div class="meta">공포탐욕지수 시리즈 가이드</div>
+<p>SOXL, TQQQ, UPRO, KODEX 레버리지 — 이들은 모두 <b>하루 수익률</b>의 배수를 추종합니다. 여기서 모든 오해가 시작됩니다. 하루 3배는 맞지만, 한 달 3배도 일 년 3배도 아닙니다.</p>
+<h2>왜 배수가 깨지는가</h2>
+<p>지수가 10% 떨어졌다가 11.1% 올라 제자리로 돌아왔다고 해봅시다. 3배 ETF는 30% 하락 후 33.3% 상승해 약 6.7% 손실로 끝납니다. 이렇게 오르내림이 반복될 때마다 손실이 누적되는 현상을 <b>변동성 드래그(volatility drag)</b>라고 합니다. 변동성이 클수록, 횡보가 길수록 드래그는 커집니다.</p>
+<h2>실제 수치로 보면</h2>
+<p>이 시리즈의 SOX 페이지 백테스트에서 극단적 공포 구간 진입 후 60거래일 평균 수익률은 지수보다 3배 ETF가 훨씬 높게 나옵니다. 급반등 국면에서는 레버리지가 압도적으로 유리하기 때문입니다. 하지만 같은 표의 <b>상승비율</b>을 보면 3배 ETF가 지수보다 낮습니다. 평균은 크게 이기지만 개별 사례로는 더 자주 물린다는 뜻이고, <b>평균 최대낙폭</b>은 훨씬 깊습니다. 평균의 화려함 뒤에 있는 경로의 고통이 레버리지의 본질입니다.</p>
+<h2>공포탐욕지수와 함께 보는 이유</h2>
+<ul>
+<li>레버리지 ETF의 성과는 진입 시점의 시장 국면에 극단적으로 민감합니다. 같은 상품이 어떤 국면에서는 자산 증식 도구, 다른 국면에서는 손실 증폭 장치가 됩니다.</li>
+<li>탐욕 구간에서의 레버리지 진입은 백테스트상 평균 수익률이 낮고 낙폭은 깊은, 가장 불리한 조합이었습니다.</li>
+<li>극단적 공포 구간은 평균적으로 유리했지만, 상승비율이 100%가 아니라는 사실이 포지션 크기를 결정해야 합니다.</li>
+</ul>
+<p>각 지수 페이지의 백테스트 표에서 자산 탭을 바꿔가며 지수와 2배·3배 상품의 차이를 직접 확인해보세요.</p>
+
+<div class="cta">지금 시장 심리가 궁금하다면: <a href="./">공포탐욕지수 시리즈 홈</a>에서 5개 지수의 현재 값을 확인하세요. 매일 자동 갱신됩니다.</div>
+</article>
+<footer>본 글과 지표는 참고용이며 투자 판단의 근거가 아닙니다. 특정 종목·상품의 매매를 권유하지 않습니다.</footer>
+<script>
+const GOAT = "";
+if (GOAT) { const s = document.createElement("script"); s.dataset.goatcounter = `https://${GOAT}.goatcounter.com/count`; s.src = "//gc.zgo.at/count.js"; s.async = true; document.body.appendChild(s); }
+</script>
+</body>
+</html>

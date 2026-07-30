@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공포탐욕지수 읽는 법 — 0부터 100까지, 숫자가 말하는 것 — 공포탐욕지수 시리즈</title>
+<meta name="description" content="공포탐욕지수의 구간별 의미, 구성 지표 해석법, 흔한 오해 세 가지를 정리했습니다. CNN 방법론 기반 시장별 지수 읽는 법.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kjb-canvas.github.io/sox-fear-greed/guide-how-to-read.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="공포탐욕지수 읽는 법 — 0부터 100까지, 숫자가 말하는 것">
+<meta property="og:description" content="공포탐욕지수의 구간별 의미, 구성 지표 해석법, 흔한 오해 세 가지를 정리했습니다. CNN 방법론 기반 시장별 지수 읽는 법.">
+<meta property="og:url" content="https://kjb-canvas.github.io/sox-fear-greed/guide-how-to-read.html">
+<meta property="og:locale" content="ko_KR">
+<style>
+:root{ color-scheme:light; --surface-1:#fcfcfb; --page:#f9f9f7; --ink-1:#0b0b0b; --ink-2:#52514e; --muted:#898781; --border:rgba(11,11,11,0.10); }
+@media (prefers-color-scheme: dark){ :root:where(:not([data-theme="light"])){ color-scheme:dark; --surface-1:#1a1a19; --page:#0d0d0d; --ink-1:#fff; --ink-2:#c3c2b7; --border:rgba(255,255,255,0.10); } }
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif; background:var(--page); color:var(--ink-1); padding:0 0 48px;}
+.topbar{position:sticky; top:0; z-index:20; background:var(--surface-1); border-bottom:1px solid var(--border);}
+.topbar-in{max-width:760px; margin:0 auto; display:flex; align-items:center; gap:4px; padding:0 16px; height:48px; overflow-x:auto;}
+.topbar .brand{font-size:13px; font-weight:700; margin-right:12px; white-space:nowrap; color:var(--ink-1); text-decoration:none;}
+.topbar nav a{font-size:13px; color:var(--ink-2); text-decoration:none; padding:6px 11px; border-radius:8px; white-space:nowrap;}
+article{max-width:760px; margin:0 auto; padding:28px 16px 0; font-size:15px; line-height:1.85; color:var(--ink-2);}
+article h1{font-size:24px; color:var(--ink-1); margin-bottom:8px; line-height:1.4;}
+article h2{font-size:18px; color:var(--ink-1); margin:28px 0 8px;}
+article p{margin-bottom:14px;}
+article ul{margin:0 0 14px 20px;}
+article li{margin-bottom:6px;}
+article b{color:var(--ink-1);}
+.meta{font-size:12px; color:var(--muted); margin-bottom:20px;}
+.cta{background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin:24px 0; font-size:14px;}
+.cta a{color:var(--ink-1); font-weight:600;}
+footer{max-width:760px; margin:32px auto 0; padding:16px; border-top:1px solid var(--border); font-size:12px; color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <a class="brand" href="./">Fear &amp; Greed 지수 시리즈</a>
+  <nav><a href="./">홈</a><a href="./sox/">SOX</a><a href="./nasdaq/">나스닥</a><a href="./spx/">S&amp;P500</a><a href="./kospi/">코스피</a><a href="./kosdaq/">코스닥</a><a href="./compare/">비교</a></nav>
+</div></div>
+<article>
+
+<h1>공포탐욕지수 읽는 법</h1>
+<div class="meta">공포탐욕지수 시리즈 가이드</div>
+<p>공포탐욕지수는 "지금 시장이 이성보다 감정에 얼마나 휘둘리고 있는가"를 0~100 하나의 숫자로 압축한 지표입니다. 가격 자체가 아니라, 여러 시장 신호가 <b>평소 수준에서 얼마나 벗어났는지</b>를 봅니다.</p>
+<h2>구간의 의미</h2>
+<ul>
+<li><b>0~25 극단적 공포</b> — 투매·공황 국면. 역사적으로 반등의 출발점이 되는 경우가 많았지만, 바닥을 정확히 맞추는 도구는 아닙니다.</li>
+<li><b>25~45 공포</b> — 조정 국면. 하락이 이어질 수도, 진정될 수도 있는 회색지대입니다.</li>
+<li><b>45~55 중립</b> — 심리가 방향을 정하지 못한 상태.</li>
+<li><b>55~75 탐욕</b> — 상승 추세에서 흔히 머무는 구간. 이 구간 자체는 위험 신호가 아닙니다.</li>
+<li><b>75~100 극단적 탐욕</b> — 과열. 백테스트상 이 구간 진입 이후 수익률은 평균 대비 부진한 경향이 있습니다.</li>
+</ul>
+<h2>구성 지표는 서로 다른 곳을 봅니다</h2>
+<p>모멘텀·신고가·거래량 폭은 <b>가격의 안쪽</b>을, 레버리지 수급은 <b>투기 심리</b>를, 변동성·안전자산·정크본드는 <b>공포의 크기</b>를 봅니다. 종합지수가 같은 30이어도 "가격 지표만 무너진 30"과 "신용시장까지 흔들리는 30"은 전혀 다른 상황입니다. 각 지수 페이지의 구성 지표 타일에서 어떤 지표가 끌어내리고 있는지 꼭 확인하세요.</p>
+<h2>흔한 오해 세 가지</h2>
+<p><b>첫째, "극단적 공포 = 즉시 매수"가 아닙니다.</b> 극단 상태는 수 주간 지속될 수 있고, 2008년이나 2020년 3월처럼 극단적 공포 속에서 추가 하락한 사례도 있습니다. 백테스트의 평균 수익률과 함께 평균 최대낙폭을 봐야 합니다.</p>
+<p><b>둘째, 시장마다 기준이 다릅니다.</b> 이 시리즈의 각 지수는 자기 시장의 최근 1년 분포를 기준으로 산출되므로, 코스피 30과 나스닥 30은 절대적으로 같은 강도가 아닙니다. 비교는 방향과 구간으로 하세요.</p>
+<p><b>셋째, 지표는 후행할 수 있습니다.</b> 구성 지표 다수가 이동평균 기반이라 급반전 초기에는 반응이 느립니다. 단독 타이밍 도구가 아니라 위험 관리의 보조 지표로 쓰는 것이 적절합니다.</p>
+
+<div class="cta">지금 시장 심리가 궁금하다면: <a href="./">공포탐욕지수 시리즈 홈</a>에서 5개 지수의 현재 값을 확인하세요. 매일 자동 갱신됩니다.</div>
+</article>
+<footer>본 글과 지표는 참고용이며 투자 판단의 근거가 아닙니다. 특정 종목·상품의 매매를 권유하지 않습니다.</footer>
+<script>
+const GOAT = "";
+if (GOAT) { const s = document.createElement("script"); s.dataset.goatcounter = `https://${GOAT}.goatcounter.com/count`; s.src = "//gc.zgo.at/count.js"; s.async = true; document.body.appendChild(s); }
+</script>
+</body>
+</html>

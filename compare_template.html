@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>지수 비교 — 공포탐욕지수 시리즈</title>
+<meta name="description" content="SOX 반도체, 나스닥100, S&P500, 코스피, 코스닥 공포탐욕지수를 한 차트에서 비교. 시장 간 심리 동조와 괴리를 확인하세요. 매일 자동 갱신.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kjb-canvas.github.io/sox-fear-greed/compare/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="공포탐욕지수 비교 — 반도체 · 나스닥 · S&P500 · 코스피 · 코스닥">
+<meta property="og:description" content="시장별 투자심리를 한 차트에서 비교. 매일 자동 갱신.">
+<meta property="og:url" content="https://kjb-canvas.github.io/sox-fear-greed/compare/">
+<meta property="og:image" content="https://kjb-canvas.github.io/sox-fear-greed/og.png">
+<meta property="og:locale" content="ko_KR">
+<style>
+:root{
+  color-scheme: light;
+  --surface-1:#fcfcfb; --page:#f9f9f7;
+  --ink-1:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
+  --fear-wash:rgba(227,73,72,0.07); --greed-wash:rgba(42,120,214,0.07);
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4;
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme: dark;
+    --surface-1:#1a1a19; --page:#0d0d0d;
+    --ink-1:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+    --fear-wash:rgba(230,103,103,0.09); --greed-wash:rgba(57,135,229,0.09);
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
+  }
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif; background:var(--page); color:var(--ink-1); padding:0 0 48px;}
+.topbar{position:sticky; top:0; z-index:20; background:var(--surface-1); border-bottom:1px solid var(--border);}
+.topbar-in{max-width:1060px; margin:0 auto; display:flex; align-items:center; gap:4px; padding:0 16px; height:48px; overflow-x:auto;}
+.topbar .brand{font-size:13px; font-weight:700; margin-right:12px; white-space:nowrap; color:var(--ink-1); text-decoration:none;}
+.topbar nav{display:flex; gap:2px;}
+.topbar nav a{font-size:13px; color:var(--ink-2); text-decoration:none; padding:6px 11px; border-radius:8px; white-space:nowrap;}
+.topbar nav a.on{background:var(--ink-1); color:var(--surface-1); font-weight:600;}
+.wrap{max-width:1060px; margin:0 auto; padding:20px 16px 0;}
+h1{font-size:22px; font-weight:700;}
+.sub{color:var(--ink-2); font-size:13px; margin-top:4px;}
+.card{background:var(--surface-1); border:1px solid var(--border); border-radius:12px; padding:20px; margin-top:16px;}
+.rangebar{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px;}
+.rangebar button{font:inherit; font-size:12px; padding:5px 12px; border-radius:7px; border:1px solid var(--border); background:transparent; color:var(--ink-2); cursor:pointer;}
+.rangebar button.on{background:var(--ink-1); color:var(--surface-1); border-color:var(--ink-1); font-weight:600;}
+.legend{display:flex; flex-wrap:wrap; gap:12px 16px; font-size:12px; color:var(--ink-2); margin-bottom:8px;}
+.legend .sw{display:inline-block; width:14px; height:3px; border-radius:2px; vertical-align:middle; margin-right:5px;}
+.nowrow{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; margin-top:8px;}
+.nowcell{border:1px solid var(--border); border-radius:10px; padding:12px;}
+.nowcell .n{font-size:12px; color:var(--ink-2);}
+.nowcell .v{font-size:22px; font-weight:700;}
+.chartbox{position:relative;}
+.tt{position:absolute; pointer-events:none; background:var(--surface-1); border:1px solid var(--border); border-radius:8px; padding:8px 10px; font-size:12px; line-height:1.6; box-shadow:0 2px 10px rgba(0,0,0,0.12); display:none; z-index:5; min-width:170px;}
+svg text{font-family:inherit;}
+.note{font-size:12px; color:var(--muted); margin-top:10px; line-height:1.6;}
+footer{max-width:1060px; margin:28px auto 0; padding:20px 16px 0; border-top:1px solid var(--border); font-size:12px; color:var(--muted);}
+@media (max-width:640px){ .wrap{padding:14px 8px 0;} .card{padding:14px;} }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <a class="brand" href="../">Fear &amp; Greed 지수 시리즈</a>
+  <nav>__NAV__</nav>
+</div></div>
+
+<div class="wrap">
+  <h1>지수 비교</h1>
+  <div class="sub">시장별 공포탐욕지수를 한 차트에서 — 심리의 동조와 괴리, 그리고 어느 시장이 먼저 움직이는지</div>
+
+  <div class="card">
+    <div class="rangebar" id="rangebar">
+      <button data-m="3">3개월</button><button data-m="6">6개월</button><button data-m="12" class="on">1년</button><button data-m="36">3년</button>
+    </div>
+    <div class="legend" id="legend"></div>
+    <div class="chartbox">
+      <svg id="chart" width="100%" height="380"></svg>
+      <div class="tt" id="tt"></div>
+    </div>
+    <div class="nowrow" id="nowrow"></div>
+    <div class="note">각 지수는 자기 시장 기준으로 산출되어 절대값 비교보다 방향과 구간(공포/탐욕) 비교가 유의미합니다. 미국 지수는 미국 마감, 한국 지수는 한국 마감 기준이라 하루 시차가 있습니다.</div>
+  </div>
+</div>
+
+<footer>본 지표는 참고용 심리 지표이며 투자 판단의 근거가 아닙니다.</footer>
+
+<script>
+const SERIES = __SERIES__;
+const NAMES = __NAMES__;
+const COLS = ["var(--s1)","var(--s2)","var(--s3)","var(--s4)","var(--s5)"];
+const keys = Object.keys(SERIES);
+// 날짜 유니온 타임라인
+const dset = new Set();
+keys.forEach(k=>SERIES[k].dates.forEach(d=>dset.add(d)));
+const DATES = [...dset].sort();
+const MAP = {};
+keys.forEach(k=>{
+  const m = {};
+  SERIES[k].dates.forEach((d,i)=>m[d]=SERIES[k].comp[i]);
+  MAP[k] = DATES.map(d=>m[d] ?? null);
+});
+const N = DATES.length;
+let months = 12;
+const MP = {left:38, right:12, top:10, bottom:22};
+function i0(){ return Math.max(0, N - Math.round(months*21)); }
+function xS(i,a,w){ return MP.left + (i-a)/(N-1-a||1)*(w-MP.left-MP.right); }
+const fmt = d => d.replaceAll("-",".");
+
+document.getElementById("legend").innerHTML = keys.map((k,j)=>`<span><span class="sw" style="background:${COLS[j]}"></span>${NAMES[k]}</span>`).join("");
+document.getElementById("nowrow").innerHTML = keys.map((k,j)=>{
+  const arr = MAP[k];
+  let v = null, i = N-1;
+  for(; i>=0; i--){ if(arr[i]!=null){ v = arr[i]; break; } }
+  return `<div class="nowcell"><div class="n"><span class="sw" style="display:inline-block;width:10px;height:3px;background:${COLS[j]};border-radius:2px;margin-right:5px;vertical-align:middle"></span>${NAMES[k]}</div><div class="v">${v==null?"-":v.toFixed(0)}</div></div>`;
+}).join("");
+
+function render(){
+  const svg = document.getElementById("chart");
+  const w = svg.clientWidth, hgt = 380, a = i0();
+  svg.setAttribute("viewBox",`0 0 ${w} ${hgt}`);
+  const y = v => MP.top + (100-v)/100*(hgt-MP.top-MP.bottom);
+  let h = "";
+  h += `<rect x="${MP.left}" y="${y(100)}" width="${w-MP.left-MP.right}" height="${y(55)-y(100)}" fill="var(--greed-wash)"/>`;
+  h += `<rect x="${MP.left}" y="${y(45)}" width="${w-MP.left-MP.right}" height="${y(0)-y(45)}" fill="var(--fear-wash)"/>`;
+  for(const g of [0,25,45,55,75,100]){
+    h += `<line x1="${MP.left}" x2="${w-MP.right}" y1="${y(g)}" y2="${y(g)}" stroke="var(--grid)"/>`;
+    h += `<text x="${MP.left-8}" y="${y(g)+4}" text-anchor="end" font-size="10" fill="var(--muted)">${g}</text>`;
+  }
+  for(let t=0;t<=6;t++){
+    const i = Math.round(a + (N-1-a)*t/6);
+    h += `<text x="${xS(i,a,w)}" y="${hgt-6}" text-anchor="middle" font-size="10" fill="var(--muted)">${DATES[i].slice(2,7).replace("-",".")}</text>`;
+  }
+  keys.forEach((k,j)=>{
+    let p = "";
+    for(let i=a;i<N;i++){ if(MAP[k][i]==null) continue; p += (p?"L":"M") + xS(i,a,w).toFixed(1) + "," + y(MAP[k][i]).toFixed(1); }
+    h += `<path d="${p}" fill="none" stroke="${COLS[j]}" stroke-width="1.8" stroke-linejoin="round" opacity="0.9"/>`;
+  });
+  h += `<line id="ch" y1="${MP.top}" y2="${hgt-MP.bottom}" stroke="var(--baseline)" style="display:none"/>`;
+  h += `<rect id="ov" x="${MP.left}" y="${MP.top}" width="${w-MP.left-MP.right}" height="${hgt-MP.top-MP.bottom}" fill="transparent"/>`;
+  svg.innerHTML = h;
+  const ov = svg.querySelector("#ov"), ch = svg.querySelector("#ch"), tt = document.getElementById("tt");
+  ov.addEventListener("mousemove", e=>{
+    const r = svg.getBoundingClientRect();
+    const frac = (e.clientX - r.left - MP.left)/(w-MP.left-MP.right);
+    const i = Math.max(a, Math.min(N-1, Math.round(a + frac*(N-1-a))));
+    const x = xS(i,a,w);
+    ch.setAttribute("x1",x); ch.setAttribute("x2",x); ch.style.display="";
+    tt.innerHTML = `<b>${fmt(DATES[i])}</b><br>` + keys.map((k,j)=>{
+      const v = MAP[k][i];
+      return `<span style="color:${COLS[j]}">${NAMES[k]}</span> ${v==null?"-":v.toFixed(0)}`;
+    }).join("<br>");
+    tt.style.display = "block";
+    tt.style.left = Math.min(svg.parentElement.clientWidth-190, Math.max(0, x+14)) + "px";
+    tt.style.top = "30px";
+  });
+  ov.addEventListener("mouseleave", ()=>{ ch.style.display="none"; tt.style.display="none"; });
+}
+document.getElementById("rangebar").addEventListener("click", e=>{
+  if(e.target.tagName!=="BUTTON") return;
+  months = +e.target.dataset.m;
+  document.querySelectorAll("#rangebar button").forEach(b=>b.classList.toggle("on", b===e.target));
+  render();
+});
+render();
+window.addEventListener("resize", render);
+</script>
+</body>
+</html>

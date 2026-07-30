@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>역발상 투자와 백테스트 해석 — 통계에 속지 않는 법 — 공포탐욕지수 시리즈</title>
+<meta name="description" content="'남들이 공포에 떨 때 사라'는 역발상 투자를 백테스트로 검증할 때 빠지기 쉬운 함정들 — 중복 표본, 생존 편향, 강세장 편향 — 을 설명합니다.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kjb-canvas.github.io/sox-fear-greed/guide-contrarian.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="역발상 투자와 백테스트 해석 — 통계에 속지 않는 법">
+<meta property="og:description" content="'남들이 공포에 떨 때 사라'는 역발상 투자를 백테스트로 검증할 때 빠지기 쉬운 함정들 — 중복 표본, 생존 편향, 강세장 편향 — 을 설명합니다.">
+<meta property="og:url" content="https://kjb-canvas.github.io/sox-fear-greed/guide-contrarian.html">
+<meta property="og:locale" content="ko_KR">
+<style>
+:root{ color-scheme:light; --surface-1:#fcfcfb; --page:#f9f9f7; --ink-1:#0b0b0b; --ink-2:#52514e; --muted:#898781; --border:rgba(11,11,11,0.10); }
+@media (prefers-color-scheme: dark){ :root:where(:not([data-theme="light"])){ color-scheme:dark; --surface-1:#1a1a19; --page:#0d0d0d; --ink-1:#fff; --ink-2:#c3c2b7; --border:rgba(255,255,255,0.10); } }
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif; background:var(--page); color:var(--ink-1); padding:0 0 48px;}
+.topbar{position:sticky; top:0; z-index:20; background:var(--surface-1); border-bottom:1px solid var(--border);}
+.topbar-in{max-width:760px; margin:0 auto; display:flex; align-items:center; gap:4px; padding:0 16px; height:48px; overflow-x:auto;}
+.topbar .brand{font-size:13px; font-weight:700; margin-right:12px; white-space:nowrap; color:var(--ink-1); text-decoration:none;}
+.topbar nav a{font-size:13px; color:var(--ink-2); text-decoration:none; padding:6px 11px; border-radius:8px; white-space:nowrap;}
+article{max-width:760px; margin:0 auto; padding:28px 16px 0; font-size:15px; line-height:1.85; color:var(--ink-2);}
+article h1{font-size:24px; color:var(--ink-1); margin-bottom:8px; line-height:1.4;}
+article h2{font-size:18px; color:var(--ink-1); margin:28px 0 8px;}
+article p{margin-bottom:14px;}
+article ul{margin:0 0 14px 20px;}
+article li{margin-bottom:6px;}
+article b{color:var(--ink-1);}
+.meta{font-size:12px; color:var(--muted); margin-bottom:20px;}
+.cta{background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin:24px 0; font-size:14px;}
+.cta a{color:var(--ink-1); font-weight:600;}
+footer{max-width:760px; margin:32px auto 0; padding:16px; border-top:1px solid var(--border); font-size:12px; color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <a class="brand" href="./">Fear &amp; Greed 지수 시리즈</a>
+  <nav><a href="./">홈</a><a href="./sox/">SOX</a><a href="./nasdaq/">나스닥</a><a href="./spx/">S&amp;P500</a><a href="./kospi/">코스피</a><a href="./kosdaq/">코스닥</a><a href="./compare/">비교</a></nav>
+</div></div>
+<article>
+
+<h1>역발상 투자와 백테스트 해석</h1>
+<div class="meta">공포탐욕지수 시리즈 가이드</div>
+<p>"남들이 공포에 떨 때 사라"는 말은 백테스트로 보면 대체로 사실입니다. 이 시리즈의 표에서도 극단적 공포 구간 이후의 평균 수익률이 전체 평균을 웃돕니다. 하지만 이 통계를 그대로 매매 규칙으로 옮기기 전에, 숫자가 만들어지는 방식을 알아야 합니다.</p>
+<h2>함정 1: 중복 표본</h2>
+<p>표본 400일이라고 400번의 독립적인 기회가 아닙니다. 극단적 공포는 며칠씩 이어지므로, 400일이 사실상 10여 개의 급락 사건에 몰려 있습니다. 그래서 이 시리즈는 <b>에피소드 수</b>를 함께 표시합니다. 표본이 많아도 에피소드가 적으면, 그 통계는 몇 번의 사건에 좌우된 것입니다.</p>
+<h2>함정 2: 강세장 편향</h2>
+<p>지난 10여 년은 큰 강세장이었습니다. 이 기간의 백테스트에서는 아무 때나 사도 평균적으로 벌었고, 공포 구간 매수는 더 벌었을 뿐입니다. "공포에 사면 번다"가 아니라 "상승장에서는 공포에 사면 더 벌었다"가 정확한 문장입니다. 장기 하락장에서는 공포가 더 깊은 공포로 이어질 수 있습니다.</p>
+<h2>함정 3: 평균 뒤에 숨은 경로</h2>
+<p>평균 +10%라는 숫자는 그 사이에 겪는 -15% 낙폭을 말해주지 않습니다. 그래서 <b>평균 최대낙폭</b> 컬럼을 함께 보세요. 진입 후 낙폭을 버틸 수 없는 자금이라면, 평균이 아무리 좋아도 그 통계는 당신의 것이 아닙니다.</p>
+<h2>그래서 어떻게 쓰나</h2>
+<ul>
+<li>극단 구간을 <b>단독 매매 신호가 아니라 포지션 조절의 참고</b>로 쓰기 — 탐욕 구간에서 신규 레버리지를 줄이고, 공포 구간에서 분할 접근을 검토하는 식</li>
+<li>기간 버튼을 바꿔가며 통계가 특정 기간에만 성립하는지 확인하기</li>
+<li>구성 지표 분해로 "가격만 무너진 공포"인지 "신용까지 흔들리는 공포"인지 구분하기</li>
+</ul>
+
+<div class="cta">지금 시장 심리가 궁금하다면: <a href="./">공포탐욕지수 시리즈 홈</a>에서 5개 지수의 현재 값을 확인하세요. 매일 자동 갱신됩니다.</div>
+</article>
+<footer>본 글과 지표는 참고용이며 투자 판단의 근거가 아닙니다. 특정 종목·상품의 매매를 권유하지 않습니다.</footer>
+<script>
+const GOAT = "";
+if (GOAT) { const s = document.createElement("script"); s.dataset.goatcounter = `https://${GOAT}.goatcounter.com/count`; s.src = "//gc.zgo.at/count.js"; s.async = true; document.body.appendChild(s); }
+</script>
+</body>
+</html>
