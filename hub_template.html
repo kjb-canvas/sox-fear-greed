@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공포탐욕지수 시리즈 — SOX 반도체 · 나스닥100 · 코스피 · 코스닥</title>
+<meta name="description" content="시장·섹터별 공포탐욕지수를 한눈에. CNN Fear &amp; Greed Index 방법론을 SOX 반도체, 나스닥100, 코스피, 코스닥에 각각 적용해 매일 자동 갱신합니다. 레버리지 ETF 백테스트 제공.">
+<meta name="keywords" content="공포탐욕지수, Fear and Greed Index, SOX, 나스닥, 코스피, 코스닥, 투자심리">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kjb-canvas.github.io/sox-fear-greed/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="공포탐욕지수 시리즈 — 반도체 · 나스닥 · 코스피 · 코스닥">
+<meta property="og:description" content="시장·섹터별 공포탐욕지수를 한눈에. 매일 자동 갱신.">
+<meta property="og:url" content="https://kjb-canvas.github.io/sox-fear-greed/">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="공포탐욕지수 시리즈">
+<meta name="twitter:description" content="SOX 반도체 · 나스닥100 · 코스피 · 코스닥 공포탐욕지수, 매일 자동 갱신.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"공포탐욕지수 시리즈","url":"https://kjb-canvas.github.io/sox-fear-greed/","description":"시장·섹터별 공포탐욕지수 대시보드 시리즈","inLanguage":"ko"}
+</script>
+<style>
+:root{
+  color-scheme: light;
+  --surface-1:#fcfcfb; --page:#f9f9f7;
+  --ink-1:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
+  --fear-2:#d03b3b; --fear-1:#e34948; --neutral:#f0efec; --greed-1:#5598e7; --greed-2:#2a78d6;
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme: dark;
+    --surface-1:#1a1a19; --page:#0d0d0d;
+    --ink-1:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+    --fear-2:#e66767; --fear-1:#e66767; --neutral:#383835; --greed-1:#6da7ec; --greed-2:#3987e5;
+  }
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif; background:var(--page); color:var(--ink-1); padding:0 0 48px;}
+.topbar{position:sticky; top:0; z-index:20; background:var(--surface-1); border-bottom:1px solid var(--border);}
+.topbar-in{max-width:1060px; margin:0 auto; display:flex; align-items:center; gap:4px; padding:0 16px; height:48px; overflow-x:auto;}
+.topbar .brand{font-size:13px; font-weight:700; margin-right:12px; white-space:nowrap; color:var(--ink-1); text-decoration:none;}
+.topbar nav{display:flex; gap:2px;}
+.topbar nav a{font-size:13px; color:var(--ink-2); text-decoration:none; padding:6px 11px; border-radius:8px; white-space:nowrap;}
+.topbar nav a:hover{background:var(--page);}
+.topbar nav a.on{background:var(--ink-1); color:var(--surface-1); font-weight:600;}
+.wrap{max-width:1060px; margin:0 auto; padding:24px 16px 0;}
+h1{font-size:24px; font-weight:700;}
+.sub{color:var(--ink-2); font-size:14px; margin-top:6px; line-height:1.6; max-width:720px;}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin-top:22px;}
+a.mcard{display:block; background:var(--surface-1); border:1px solid var(--border); border-radius:12px; padding:18px; text-decoration:none; color:var(--ink-1); transition:border-color .15s;}
+a.mcard:hover{border-color:var(--ink-1);}
+.mcard .name{font-size:14px; font-weight:700;}
+.mcard .date{font-size:11px; color:var(--muted); margin-top:2px;}
+.mcard .gauge{margin:10px auto 0; display:block;}
+.mcard .val{font-size:34px; font-weight:700; text-align:center; margin-top:6px;}
+.mcard .zone{font-size:13px; font-weight:600; text-align:center; margin-top:2px;}
+.mcard .delta{font-size:11px; color:var(--muted); text-align:center; margin-top:4px;}
+.about{background:var(--surface-1); border:1px solid var(--border); border-radius:12px; padding:20px; margin-top:22px; font-size:13px; line-height:1.75; color:var(--ink-2);}
+.about h2{font-size:15px; font-weight:700; color:var(--ink-1); margin-bottom:6px;}
+.about b{color:var(--ink-1);}
+footer{max-width:1060px; margin:28px auto 0; padding:20px 16px 0; border-top:1px solid var(--border); font-size:12px; color:var(--muted); line-height:1.7;}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <a class="brand" href="./">Fear &amp; Greed 지수 시리즈</a>
+  <nav>
+    <a href="./" class="on">홈</a><a href="./sox/">SOX 반도체</a><a href="./nasdaq/">나스닥100</a><a href="./kospi/">코스피</a><a href="./kosdaq/">코스닥</a>
+  </nav>
+</div></div>
+
+<div class="wrap">
+  <h1>공포탐욕지수 시리즈</h1>
+  <div class="sub">CNN Fear &amp; Greed Index 방법론을 시장·섹터별 지수에 맞게 적용한 투자심리 지표입니다.
+  모멘텀, 52주 신고가·신저가, 거래량 폭, 레버리지 상품 수급 등 심리 지표를 0~100으로 종합해 매일 자동 갱신합니다.</div>
+
+  <div class="cards" id="cards"></div>
+
+  <div class="about">
+    <h2>이 지표를 읽는 법</h2>
+    0에 가까울수록 극단적 공포, 100에 가까울수록 극단적 탐욕을 뜻합니다.
+    역사적으로 극단적 공포 구간은 반등의 출발점이 되는 경우가 많았고, 극단적 탐욕 구간 이후의 수익률은 상대적으로 부진한 경향이 있었습니다.
+    다만 극단 상태는 생각보다 오래 지속될 수 있어 단독 매매 신호로 쓰기에는 부적합하며, 각 페이지의 <b>구간별 백테스트</b>에서 과거 통계를 직접 확인할 수 있습니다.
+    각 지수의 산출 방법과 데이터 한계는 페이지 하단 <b>산출 방법</b>에 명시되어 있습니다.
+    본 지표는 참고용 심리 지표이며 투자 판단의 근거가 아닙니다.
+  </div>
+</div>
+
+<footer>
+  데이터: Yahoo Finance, FRED, KRX · 평일 자동 갱신 · 문의 및 소스: <a href="https://github.com/kjb-canvas/sox-fear-greed" style="color:inherit">GitHub</a>
+</footer>
+
+<script>
+const SUMS = __SUMS__;
+function zoneColor(v){
+  const s = getComputedStyle(document.documentElement);
+  if(v<25) return s.getPropertyValue("--fear-2");
+  if(v<45) return s.getPropertyValue("--fear-1");
+  if(v<55) return s.getPropertyValue("--muted");
+  if(v<75) return s.getPropertyValue("--greed-1");
+  return s.getPropertyValue("--greed-2");
+}
+function miniGauge(v){
+  const cx=90, cy=78, r1=52, r2=70;
+  const arcs = [[0,25,"--fear-2"],[25,45,"--fear-1"],[45,55,"--neutral"],[55,75,"--greed-1"],[75,100,"--greed-2"]];
+  const P = (r,a)=>{ const t=Math.PI*(1-a/100); return [cx+r*Math.cos(t), cy-r*Math.sin(t)]; };
+  let h = `<svg class="gauge" width="180" height="86" aria-hidden="true">`;
+  for(const [a,b,c] of arcs){
+    const g=0.8, a2=a+(a>0?g:0), b2=b-(b<100?g:0);
+    const [x1,y1]=P(r2,a2),[x2,y2]=P(r2,b2),[x3,y3]=P(r1,b2),[x4,y4]=P(r1,a2);
+    const laf=(b2-a2)>50?1:0;
+    h += `<path d="M${x1},${y1} A${r2},${r2} 0 ${laf} 1 ${x2},${y2} L${x3},${y3} A${r1},${r1} 0 ${laf} 0 ${x4},${y4} Z" fill="var(${c})"/>`;
+  }
+  const [nx,ny]=P(r1-6,v);
+  h += `<line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="var(--ink-1)" stroke-width="2.5" stroke-linecap="round"/>`;
+  h += `<circle cx="${cx}" cy="${cy}" r="4.5" fill="var(--ink-1)"/></svg>`;
+  return h;
+}
+document.getElementById("cards").innerHTML = SUMS.map(s=>{
+  const d = s.value - s.prev;
+  const dTxt = (d>0?"+":"") + d.toFixed(1);
+  return `<a class="mcard" href="./${s.key}/">
+    <div class="name">${s.name}</div>
+    <div class="date">기준일 ${s.date}</div>
+    ${miniGauge(s.value)}
+    <div class="val" style="color:${zoneColor(s.value)}">${s.value.toFixed(0)}</div>
+    <div class="zone" style="color:${zoneColor(s.value)}">${s.zone}</div>
+    <div class="delta">전일 대비 ${dTxt}</div>
+  </a>`;
+}).join("");
+</script>
+</body>
+</html>

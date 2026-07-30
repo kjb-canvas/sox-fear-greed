@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOX 공포탐욕지수 — 필라델피아 반도체지수 Fear &amp; Greed Index (매일 업데이트)</title>
-<meta name="description" content="필라델피아 반도체지수(SOX) 전용 공포탐욕지수. CNN Fear &amp; Greed Index 방법론을 반도체 섹터에 맞게 적용해 모멘텀·신고가·거래량 폭 등 7개 심리 지표를 0~100으로 산출. SOXL·USD 레버리지 ETF 백테스트와 11년 추이 차트 제공, 매일 자동 갱신.">
-<meta name="keywords" content="SOX, 공포탐욕지수, 반도체지수, 필라델피아 반도체, Fear and Greed Index, SOXL, SOXX, 반도체 ETF, 투자심리, semiconductor fear greed">
+<title>__TITLE__</title>
+<meta name="description" content="__METADESC__">
+<meta name="keywords" content="__KEYWORDS__">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://kjb-canvas.github.io/sox-fear-greed/">
+<link rel="canonical" href="__CANONICAL__">
 <meta property="og:type" content="website">
-<meta property="og:title" content="SOX 공포탐욕지수 — 반도체지수 Fear &amp; Greed Index">
-<meta property="og:description" content="CNN 공포탐욕지수 방법론을 필라델피아 반도체지수(SOX)에 맞게 적용한 반도체 전용 투자심리 지표. 매일 자동 갱신.">
-<meta property="og:url" content="https://kjb-canvas.github.io/sox-fear-greed/">
+<meta property="og:title" content="__TITLE__">
+<meta property="og:description" content="__METADESC__">
+<meta property="og:url" content="__CANONICAL__">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SOX 공포탐욕지수 — 반도체지수 Fear &amp; Greed Index">
-<meta name="twitter:description" content="반도체 섹터 전용 공포탐욕지수. 7개 심리 지표, 레버리지 ETF 백테스트, 매일 자동 갱신.">
+<meta name="twitter:title" content="__TITLE__">
+<meta name="twitter:description" content="__METADESC__">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"SOX 공포탐욕지수","alternateName":"Semiconductor Fear and Greed Index","url":"https://kjb-canvas.github.io/sox-fear-greed/","applicationCategory":"FinanceApplication","operatingSystem":"Web","description":"필라델피아 반도체지수(SOX) 기반 공포탐욕지수. CNN Fear & Greed Index 방법론을 반도체 섹터에 적용한 투자심리 지표.","offers":{"@type":"Offer","price":"0"},"inLanguage":"ko"}
+{"@context":"https://schema.org","@type":"WebApplication","name":"__TITLE__","url":"__CANONICAL__","applicationCategory":"FinanceApplication","operatingSystem":"Web","description":"__METADESC__","offers":{"@type":"Offer","price":"0"},"inLanguage":"ko"}
 </script>
 <style>
 :root{
@@ -27,7 +27,7 @@
   --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
   --fear-2:#d03b3b; --fear-1:#e34948; --neutral:#f0efec; --greed-1:#5598e7; --greed-2:#2a78d6;
   --fear-wash:rgba(227,73,72,0.07); --greed-wash:rgba(42,120,214,0.07);
-  --line:#2a78d6; --sox-line:#52514e;
+  --line:#2a78d6; --alt-line:#52514e;
 }
 @media (prefers-color-scheme: dark){
   :root:where(:not([data-theme="light"])){
@@ -37,14 +37,21 @@
     --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
     --fear-2:#e66767; --fear-1:#e66767; --neutral:#383835; --greed-1:#6da7ec; --greed-2:#3987e5;
     --fear-wash:rgba(230,103,103,0.09); --greed-wash:rgba(57,135,229,0.09);
-    --line:#3987e5; --sox-line:#c3c2b7;
+    --line:#3987e5; --alt-line:#c3c2b7;
   }
 }
 *{box-sizing:border-box; margin:0; padding:0;}
-body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif; background:var(--page); color:var(--ink-1); padding:24px 16px 48px;}
-.wrap{max-width:1060px; margin:0 auto;}
-header h1{font-size:22px; font-weight:700;}
-header .sub{color:var(--ink-2); font-size:13px; margin-top:4px; line-height:1.5;}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif; background:var(--page); color:var(--ink-1); padding:0 0 48px;}
+.topbar{position:sticky; top:0; z-index:20; background:var(--surface-1); border-bottom:1px solid var(--border);}
+.topbar-in{max-width:1060px; margin:0 auto; display:flex; align-items:center; gap:4px; padding:0 16px; height:48px; overflow-x:auto;}
+.topbar .brand{font-size:13px; font-weight:700; margin-right:12px; white-space:nowrap; color:var(--ink-1); text-decoration:none;}
+.topbar nav{display:flex; gap:2px;}
+.topbar nav a{font-size:13px; color:var(--ink-2); text-decoration:none; padding:6px 11px; border-radius:8px; white-space:nowrap;}
+.topbar nav a:hover{background:var(--page);}
+.topbar nav a.on{background:var(--ink-1); color:var(--surface-1); font-weight:600;}
+.wrap{max-width:1060px; margin:0 auto; padding:20px 16px 0;}
+header.page h1{font-size:22px; font-weight:700;}
+header.page .sub{color:var(--ink-2); font-size:13px; margin-top:4px; line-height:1.5;}
 .card{background:var(--surface-1); border:1px solid var(--border); border-radius:12px; padding:20px; margin-top:16px;}
 .hero{display:flex; flex-wrap:wrap; gap:24px; align-items:center;}
 .gaugebox{flex:0 0 300px; text-align:center;}
@@ -59,9 +66,10 @@ header .sub{color:var(--ink-2); font-size:13px; margin-top:4px; line-height:1.5;
 .chip .z{font-size:11px; margin-top:1px; color:var(--ink-2);}
 h2{font-size:15px; font-weight:700; margin-bottom:2px;}
 .desc{font-size:12px; color:var(--ink-2); margin-bottom:12px;}
-.rangebar{display:flex; gap:6px; margin-bottom:10px;}
-.rangebar button{font:inherit; font-size:12px; padding:5px 12px; border-radius:7px; border:1px solid var(--border); background:transparent; color:var(--ink-2); cursor:pointer;}
-.rangebar button.on{background:var(--ink-1); color:var(--surface-1); border-color:var(--ink-1); font-weight:600;}
+.rangebar{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px;}
+.rangebar button, .tabbar button{font:inherit; font-size:12px; padding:5px 12px; border-radius:7px; border:1px solid var(--border); background:transparent; color:var(--ink-2); cursor:pointer;}
+.rangebar button.on, .tabbar button.on{background:var(--ink-1); color:var(--surface-1); border-color:var(--ink-1); font-weight:600;}
+.tabbar{display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 6px;}
 .chartbox{position:relative;}
 svg text{font-family:inherit;}
 .tt{position:absolute; pointer-events:none; background:var(--surface-1); border:1px solid var(--border); border-radius:8px; padding:8px 10px; font-size:12px; line-height:1.55; box-shadow:0 2px 10px rgba(0,0,0,0.12); display:none; z-index:5; min-width:150px;}
@@ -85,20 +93,26 @@ svg text{font-family:inherit;}
 .legendrow .sw{display:inline-block; width:14px; height:3px; border-radius:2px; vertical-align:middle; margin-right:5px;}
 .indtoggles{display:flex; flex-wrap:wrap; gap:6px; margin:2px 0 10px;}
 .indtoggles button{font:inherit; font-size:11px; padding:4px 10px; border-radius:999px; border:1px solid var(--border); background:transparent; color:var(--ink-2); cursor:pointer;}
-.indtoggles button.on{border-color:currentColor; font-weight:600;}
-.indtoggles button .dot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; vertical-align:-1px; background:currentColor;}
+.indtoggles button.on{border-color:var(--ink-1); color:var(--ink-1); font-weight:600;}
+.indtoggles button .dot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; vertical-align:-1px;}
 .tilehead{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
 .tilehead .seldate{font-size:12px; color:var(--ink-2);}
 .tilehead button{font:inherit; font-size:11px; padding:3px 10px; border-radius:999px; border:1px solid var(--border); background:transparent; color:var(--ink-2); cursor:pointer; display:none;}
+.pricechart-label{font-size:13px; font-weight:700; margin:16px 0 6px;}
+.pricechart-label:first-of-type{margin-top:4px;}
 table.bt{width:100%; border-collapse:collapse; font-size:13px; margin-top:10px;}
 table.bt th{font-size:11px; color:var(--muted); font-weight:600; text-align:right; padding:6px 8px; border-bottom:1px solid var(--grid);}
 table.bt th:first-child, table.bt td:first-child{text-align:left;}
 table.bt td{padding:7px 8px; text-align:right; border-bottom:1px solid var(--grid); font-variant-numeric:tabular-nums;}
 table.bt tr:last-child td{border-bottom:none; color:var(--muted);}
+footer{max-width:1060px; margin:28px auto 0; padding:20px 16px 0; border-top:1px solid var(--border); font-size:12px; color:var(--muted); line-height:1.7;}
+footer .links{display:flex; flex-wrap:wrap; gap:14px; margin-bottom:10px;}
+footer .links a{color:var(--ink-2); text-decoration:none;}
+footer .links a:hover{text-decoration:underline;}
 @media (max-width:640px){
-  body{padding:12px 8px 32px;}
+  .wrap{padding:14px 8px 0;}
   .card{padding:14px; border-radius:10px;}
-  header h1{font-size:18px;}
+  header.page h1{font-size:18px;}
   .gaugebox{flex:1 1 100%;}
   .nowvalue{font-size:38px;}
   .chip{min-width:72px; padding:6px 9px;}
@@ -108,13 +122,18 @@ table.bt tr:last-child td{border-bottom:none; color:var(--muted);}
 </style>
 </head>
 <body>
-<div class="wrap viz-root">
-  <header>
-    <h1>필라델피아 반도체지수(SOX) 공포·탐욕 지수</h1>
-    <div class="sub">CNN Fear &amp; Greed Index 방법론을 SOX에 맞게 적용 · 7개 심리 지표의 동일가중 평균 (0=극단적 공포, 100=극단적 탐욕)</div>
+<div class="topbar"><div class="topbar-in">
+  <a class="brand" href="../">Fear &amp; Greed 지수 시리즈</a>
+  <nav>__NAV__</nav>
+</div></div>
+
+<div class="wrap">
+  <header class="page">
+    <h1>__H1__</h1>
+    <div class="sub">CNN Fear &amp; Greed Index 방법론을 이 지수에 맞게 적용 · __NIND__개 심리 지표의 동일가중 평균 (0=극단적 공포, 100=극단적 탐욕)</div>
   </header>
 
-  <div class="card">
+  <div class="card" id="now">
     <div class="hero">
       <div class="gaugebox"><svg id="gauge" width="300" height="185" role="img" aria-label="현재 공포탐욕 게이지"></svg></div>
       <div class="heroright">
@@ -126,14 +145,14 @@ table.bt tr:last-child td{border-bottom:none; color:var(--muted);}
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="trend">
     <h2>지수 추이</h2>
-    <div class="desc">종합지수 일별 추이 · 배경 음영은 공포(붉은색)/탐욕(파란색) 구간 · <b>차트를 클릭하면 아래 구성 지표가 그 날짜 기준으로 바뀝니다</b></div>
+    <div class="desc">선 색이 지수값을 나타냅니다 (빨강 공포 - 회색 중립 - 파랑 탐욕) · 차트를 클릭하면 아래 구성 지표가 그 날짜 기준으로 바뀝니다</div>
     <div class="rangebar" id="rangebar">
       <button data-m="3">3개월</button><button data-m="6">6개월</button><button data-m="12">1년</button><button data-m="36" class="on">3년</button><button data-m="60">5년</button><button data-m="120">10년</button><button data-m="0">전체</button>
     </div>
     <div class="legendrow">
-      <span><span class="sw" style="background:linear-gradient(90deg,var(--fear-2),#898781,var(--greed-2)); width:44px;"></span>선 색 = 지수값 (빨강 공포 ↔ 회색 중립 ↔ 파랑 탐욕)</span>
+      <span><span class="sw" style="background:linear-gradient(90deg,var(--fear-2),#898781,var(--greed-2)); width:44px;"></span>종합지수 (0~100)</span>
       <span style="color:var(--muted)">개별 지표 겹쳐 보기:</span>
     </div>
     <div class="indtoggles" id="indToggles"></div>
@@ -141,33 +160,17 @@ table.bt tr:last-child td{border-bottom:none; color:var(--muted);}
       <svg id="mainChart" width="100%" height="320"></svg>
       <div class="tt" id="ttMain"></div>
     </div>
-    <div class="legendrow" style="margin-top:18px;">
-      <span style="font-weight:600; color:var(--ink-1);">SOX 지수 (로그 스케일)</span>
-      <span><span class="sw" style="background:linear-gradient(90deg,var(--fear-2),#898781,var(--greed-2)); width:44px;"></span>선 색 = 당일 공포·탐욕 지수 (아래 세 차트 공통)</span>
-    </div>
-    <div class="chartbox">
-      <svg id="soxChart" width="100%" height="160"></svg>
-      <div class="tt" id="ttSox"></div>
-    </div>
-    <div class="legendrow" style="margin-top:14px;">
-      <span style="font-weight:600; color:var(--ink-1);">USD — ProShares Ultra Semiconductors 2× (로그 스케일)</span>
-    </div>
-    <div class="chartbox">
-      <svg id="usdChart" width="100%" height="160"></svg>
-      <div class="tt" id="ttUsd"></div>
-    </div>
-    <div class="legendrow" style="margin-top:14px;">
-      <span style="font-weight:600; color:var(--ink-1);">SOXL — Direxion Semiconductor Bull 3× (로그 스케일)</span>
-    </div>
-    <div class="chartbox">
-      <svg id="soxlChart" width="100%" height="160"></svg>
-      <div class="tt" id="ttSoxl"></div>
-    </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="prices">
+    <h2>가격 차트</h2>
+    <div class="desc">로그 스케일 · 선 색 = 당일 공포·탐욕 지수 · 기간은 위 "지수 추이"의 기간 선택을 따릅니다</div>
+    <div id="priceCharts"></div>
+  </div>
+
+  <div class="card" id="tilescard">
     <div class="tilehead">
-      <h2>구성 지표 (7개)</h2>
+      <h2>구성 지표</h2>
       <span class="seldate" id="tileDate"></span>
       <button id="tileReset">현재로 돌아가기</button>
     </div>
@@ -175,43 +178,37 @@ table.bt tr:last-child td{border-bottom:none; color:var(--muted);}
     <div class="tiles" id="tiles"></div>
   </div>
 
-  <div class="card">
+  <div class="card" id="backtest">
     <h2>구간별 백테스트 — 이후 수익률</h2>
-    <div class="desc">해당 구간에 있던 날 기준, 이후 20/60/120거래일 수익률 · 아래 기간 버튼으로 대상 기간 선택 (표본 중복 있음)</div>
+    <div class="desc">해당 구간에 있던 날 기준, 이후 20/60/120거래일 수익률 · 자산과 기간을 선택해 확인 (표본 중복 있음)</div>
+    <div class="tabbar" id="btAssets"></div>
     <div class="rangebar" id="btRange">
       <button data-m="3">3개월</button><button data-m="6">6개월</button><button data-m="12">1년</button><button data-m="36" class="on">3년</button><button data-m="60">5년</button><button data-m="120">10년</button><button data-m="0">전체</button>
     </div>
-    <div class="bt-asset" style="font-size:13px; font-weight:700; margin-top:14px;">SOX 지수</div>
-    <table class="bt" id="btT_sox"></table>
-    <div class="bt-asset" style="font-size:13px; font-weight:700; margin-top:18px;">USD — ProShares Ultra Semiconductors 2×</div>
-    <table class="bt" id="btT_usd"></table>
-    <div class="bt-asset" style="font-size:13px; font-weight:700; margin-top:18px;">SOXL — Direxion Semiconductor Bull 3×</div>
-    <table class="bt" id="btT_soxl"></table>
-    <div class="note">⚠️ 해석 주의: 극단 구간 표본은 소수의 급락 에피소드에 몰려 있어(중복 표본) 개별 사건의 영향이 큼. 짧은 기간(3~6개월)은 표본이 적어 통계적 의미가 없음. 레버리지 ETF는 하락·횡보 구간에서 변동성 손실이 누적되므로 단순 배수 수익을 기대할 수 없음. 과거 수익률은 미래를 보장하지 않음.</div>
+    <table class="bt" id="btTable"></table>
+    <div class="note">해석 주의: 극단 구간 표본은 소수의 급락 에피소드에 몰려 있어(중복 표본) 개별 사건의 영향이 큽니다. 짧은 기간(3~6개월)은 표본이 적어 통계적 의미가 없습니다. 레버리지 ETF는 하락·횡보 구간에서 변동성 손실이 누적되므로 단순 배수 수익을 기대할 수 없습니다. 과거 수익률은 미래를 보장하지 않습니다.</div>
   </div>
 
-  <div class="card method">
+  <div class="card method" id="method">
     <h2>산출 방법</h2>
     <ul>
-      <li><b>주가 모멘텀</b> — SOX 지수 vs 125일 이동평균 이탈률</li>
-      <li><b>주가 강도</b> — SOX 구성 30종목 중 52주 신고가·신저가 종목 비중(순비중, 10일 평활)</li>
-      <li><b>주가 폭</b> — 구성종목 상승/하락 거래량 순비중의 McClellan 오실레이터(19/39 EMA)</li>
-      <li><b>레버리지 ETF 수급</b> — SOXL(3배 롱)/SOXS(3배 숏) 거래대금 비율(5일 평균) · <i>풋/콜 비율 대체</i></li>
-      <li><b>변동성</b> — VXN(나스닥100 변동성지수) vs 50일 이동평균 · <i>SOX 전용 VIX 부재로 대체</i></li>
-      <li><b>안전자산 수요</b> — 최근 20거래일 SOX 수익률 − 미국채 ETF(IEF) 수익률</li>
-      <li><b>정크본드 수요</b> — 하이일드 스프레드(ICE BofA HY OAS, 5일 평균) 역방향</li>
+__METHODLIST__
     </ul>
-    각 지표를 <b>최근 252거래일 분포 대비 백분위</b>로 0~100점화한 뒤 <b>동일가중 평균</b>. 구간: 0–25 극단적 공포 · 25–45 공포 · 45–55 중립 · 55–75 탐욕 · 75–100 극단적 탐욕.
-    <div class="note">
-      데이터: Yahoo Finance(SOX·구성종목·VXN·IEF·SOXL/SOXS, 수정주가), FRED(BAMLH0A0HYM2). 기준일 __LASTDATE__.<br>
-      유의: 정크본드 지표는 데이터 제공 한계(FRED 3년)로 2023-10월 이전 구간에서 제외됨. 상장 1년 미만 종목은 강도·폭 계산에서 제외. 1년 백분위 방식은 장기 강세장에서 조정이 실제보다 극단적 공포로 표시되는 경향(강세장 편향)과, 극단값에서 0/100에 붙는 포화 특성이 있음. CNN 원 방법론의 세부 공식은 비공개라 수치를 직접 비교할 수 없음. 본 지표는 참고용이며 투자 판단의 근거가 아님.
-    </div>
+    각 지표를 <b>최근 252거래일 분포 대비 백분위</b>로 0~100점화한 뒤 <b>동일가중 평균</b>. 구간: 0-25 극단적 공포 · 25-45 공포 · 45-55 중립 · 55-75 탐욕 · 75-100 극단적 탐욕.
+    <div class="note">__NOTES__</div>
   </div>
 </div>
 
+<footer>
+  <div class="links">
+    <a href="../">홈</a><a href="../sox/">SOX 반도체</a><a href="../nasdaq/">나스닥100</a><a href="../kospi/">코스피</a><a href="../kosdaq/">코스닥</a>
+  </div>
+  기준일 __LASTDATE__ · 평일 자동 갱신 · 본 지표는 참고용 심리 지표이며 투자 판단의 근거가 아닙니다.
+</footer>
+
 <script>
+const CFG = __CFG__;
 const D = __DATA__;
-const BT = __BT__;
 const N = D.dates.length;
 const ZONES = [[0,25,"극단적 공포"],[25,45,"공포"],[45,55,"중립"],[55,75,"탐욕"],[75,101,"극단적 탐욕"]];
 function zoneOf(v){ for(const z of ZONES) if(v>=z[0]&&v<z[1]) return z[2]; return ""; }
@@ -225,15 +222,18 @@ function zoneColor(v){
 }
 const fmt = d => d.replaceAll("-",".");
 const last = N-1, cur = D.comp[last];
+const IND_COLORS = {momentum:"#2a78d6",strength:"#eb6834",breadth:"#1baf7a",levered:"#eda100",vol:"#e87ba4",safehaven:"#008300",junk:"#4a3aa7"};
+let SEL = null;
+const SHOW = {};
 
 /* ---- hero ---- */
 document.getElementById("nowValue").textContent = cur.toFixed(0);
 document.getElementById("nowValue").style.color = zoneColor(cur);
 document.getElementById("nowZone").textContent = zoneOf(cur);
 document.getElementById("nowZone").style.color = zoneColor(cur);
-document.getElementById("nowDate").textContent = "기준일 " + fmt(D.dates[last]) + " (미국 종가)";
+document.getElementById("nowDate").textContent = "기준일 " + fmt(D.dates[last]) + " (종가)";
 const offs = [[1,"어제"],[5,"1주 전"],[21,"1개월 전"],[63,"3개월 전"],[252,"1년 전"]];
-document.getElementById("chips").innerHTML = offs.map(([o,l])=>{
+document.getElementById("chips").innerHTML = offs.filter(([o])=>last-o>=0 && D.comp[last-o]!=null).map(([o,l])=>{
   const v = D.comp[last-o];
   return `<div class="chip"><div class="l">${l}</div><div class="v">${v.toFixed(0)}</div><div class="z" style="color:${zoneColor(v)}">${zoneOf(v)}</div></div>`;
 }).join("");
@@ -262,135 +262,35 @@ document.getElementById("chips").innerHTML = offs.map(([o,l])=>{
   svg.innerHTML = h;
 })();
 
-/* ---- charts ---- */
-let months = 36;
-const MP = {left:34, right:12, top:10, bottom:22};
-function sliceIdx(){ if(!months) return 0; const days = Math.round(months*21); return Math.max(0, N-days); }
-function xScale(i,i0,w){ return MP.left + (i-i0)/(N-1-i0||1)*(w-MP.left-MP.right); }
-
-const IND_COLORS = {momentum:"#2a78d6",strength:"#eb6834",breadth:"#1baf7a",levered:"#eda100",vol:"#e87ba4",safehaven:"#008300",junk:"#4a3aa7"};
-const SHOW = {};
-let SEL = null;
-/* diverging color: 0=fear red, 50=neutral gray, 100=greed blue */
+/* ---- color helpers ---- */
 function hex2rgb(h){ h=h.trim().replace("#",""); return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)]; }
 let CFEAR, CNEUT = [137,135,129], CGREED;
-function initColors(){
-  const s = getComputedStyle(document.documentElement);
-  CFEAR = hex2rgb(s.getPropertyValue("--fear-2")); CGREED = hex2rgb(s.getPropertyValue("--greed-2"));
-}
 function colorFor(v){
-  if(!CFEAR) initColors();
+  if(!CFEAR){
+    const s = getComputedStyle(document.documentElement);
+    CFEAR = hex2rgb(s.getPropertyValue("--fear-2")); CGREED = hex2rgb(s.getPropertyValue("--greed-2"));
+  }
   let a, b, t;
   if(v<50){ a=CFEAR; b=CNEUT; t=v/50; } else { a=CNEUT; b=CGREED; t=(v-50)/50; }
   const c = a.map((x,i)=>Math.round(x+(b[i]-x)*t));
   return `rgb(${c[0]},${c[1]},${c[2]})`;
 }
-/* draw a line as per-segment colored paths */
 function coloredSegs(pts, colVals, width){
   let h = "";
   for(let j=1;j<pts.length;j++){
-    const col = colorFor((colVals[j-1]+colVals[j])/2);
-    h += `<path d="M${pts[j-1][0]},${pts[j-1][1]}L${pts[j][0]},${pts[j][1]}" stroke="${col}" stroke-width="${width}" fill="none" stroke-linecap="round"/>`;
+    h += `<path d="M${pts[j-1][0]},${pts[j-1][1]}L${pts[j][0]},${pts[j][1]}" stroke="${colorFor((colVals[j-1]+colVals[j])/2)}" stroke-width="${width}" fill="none" stroke-linecap="round"/>`;
   }
   return h;
 }
-function renderMain(){
-  const svg = document.getElementById("mainChart");
-  const w = svg.clientWidth, hgt = 320;
-  svg.setAttribute("viewBox",`0 0 ${w} ${hgt}`);
-  const i0 = sliceIdx();
-  const y = v => MP.top + (100-v)/100*(hgt-MP.top-MP.bottom);
-  let h = "";
-  // zone washes
-  h += `<rect x="${MP.left}" y="${y(100)}" width="${w-MP.left-MP.right}" height="${y(55)-y(100)}" fill="var(--greed-wash)"/>`;
-  h += `<rect x="${MP.left}" y="${y(45)}" width="${w-MP.left-MP.right}" height="${y(0)-y(45)}" fill="var(--fear-wash)"/>`;
-  // gridlines + y labels
-  for(const g of [0,25,45,55,75,100]){
-    h += `<line x1="${MP.left}" x2="${w-MP.right}" y1="${y(g)}" y2="${y(g)}" stroke="var(--grid)" stroke-width="1"/>`;
-    h += `<text x="${MP.left-8}" y="${y(g)+4}" text-anchor="end" font-size="10" fill="var(--muted)">${g}</text>`;
-  }
-  // x ticks: ~6
-  const ticks = 6;
-  for(let t=0;t<=ticks;t++){
-    const i = Math.round(i0 + (N-1-i0)*t/ticks);
-    h += `<text x="${xScale(i,i0,w)}" y="${hgt-6}" text-anchor="middle" font-size="10" fill="var(--muted)">${D.dates[i].slice(2,7).replace("-",".")}</text>`;
-  }
-  // composite line: segments colored by value (fear red <-> greed blue)
-  const pts = [], cvs = [];
-  for(let i=i0;i<N;i++){ if(D.comp[i]==null) continue; pts.push([+xScale(i,i0,w).toFixed(1), +y(D.comp[i]).toFixed(1)]); cvs.push(D.comp[i]); }
-  for(const k in SHOW){
-    if(!SHOW[k]) continue;
-    let p2 = "";
-    for(let i=i0;i<N;i++){ if(D[k][i]==null) continue; p2 += (p2?"L":"M") + xScale(i,i0,w).toFixed(1) + "," + y(D[k][i]).toFixed(1); }
-    h += `<path d="${p2}" fill="none" stroke="${IND_COLORS[k]}" stroke-width="1.3" opacity="0.8" stroke-linejoin="round"/>`;
-  }
-  h += coloredSegs(pts, cvs, 2);
-  if(SEL!=null && SEL>=i0){
-    const sx = xScale(SEL,i0,w).toFixed(1);
-    h += `<line x1="${sx}" x2="${sx}" y1="${MP.top}" y2="${hgt-MP.bottom}" stroke="var(--ink-1)" stroke-width="1" stroke-dasharray="3,3" opacity="0.55"/>`;
-  }
-  // zone edge labels
-  h += `<text x="${w-MP.right}" y="${y(87)+3}" text-anchor="end" font-size="10" fill="var(--greed-2)" opacity="0.8">극단적 탐욕</text>`;
-  h += `<text x="${w-MP.right}" y="${y(12)+3}" text-anchor="end" font-size="10" fill="var(--fear-2)" opacity="0.8">극단적 공포</text>`;
-  // crosshair group
-  h += `<line id="chM" y1="${MP.top}" y2="${hgt-MP.bottom}" stroke="var(--baseline)" stroke-width="1" style="display:none"/>`;
-  h += `<circle id="cpM" r="4" fill="var(--line)" stroke="var(--surface-1)" stroke-width="2" style="display:none"/>`;
-  h += `<rect id="ovM" x="${MP.left}" y="${MP.top}" width="${w-MP.left-MP.right}" height="${hgt-MP.top-MP.bottom}" fill="transparent"/>`;
-  svg.innerHTML = h;
-  hookTip(svg,"ovM","chM","cpM","ttMain",i0,w,(i)=>({
-    y: y(D.comp[i]), col: colorFor(D.comp[i]),
-    html:`<b style="color:${colorFor(D.comp[i])}">${D.comp[i].toFixed(1)} · ${zoneOf(D.comp[i])}</b><br>${fmt(D.dates[i])}<br><span style="color:var(--muted)">SOX ${D.sox[i].toLocaleString()} · 클릭하면 지표 분해</span>`
-  }), (i)=>{ SEL = i; renderMain(); renderTiles(i); document.getElementById("tiles").scrollIntoView({behavior:"smooth", block:"nearest"}); });
-}
 
-const PRICE_CHARTS = [
-  {svg:"soxChart", tt:"ttSox", key:"sox", label:"SOX", dp:0},
-  {svg:"usdChart", tt:"ttUsd", key:"usd", label:"USD 2\u00d7", dp:2},
-  {svg:"soxlChart", tt:"ttSoxl", key:"soxl", label:"SOXL 3\u00d7", dp:2},
-];
-function renderPrice(cfg){
-  const svg = document.getElementById(cfg.svg);
-  if(!svg || !D[cfg.key]) return;
-  const w = svg.clientWidth, hgt = 160;
-  svg.setAttribute("viewBox",`0 0 ${w} ${hgt}`);
-  const i0 = sliceIdx();
-  const series = D[cfg.key];
-  const vis = series.slice(i0).filter(v=>v!=null);
-  if(!vis.length) return;
-  const lv = vis.map(Math.log);
-  const mn = Math.min(...lv), mx = Math.max(...lv), pad = (mx-mn)*0.05 || 0.01;
-  const y = v => 8 + ((mx+pad)-Math.log(v))/((mx+pad)-(mn-pad))*(hgt-8-22);
-  const fmtVal = v => cfg.dp===0 ? Math.round(v).toLocaleString() : v.toFixed(cfg.dp);
-  const fmtAxis = v => v>=1000 ? (v/1000).toFixed(1)+"k" : (v>=100 ? Math.round(v) : v.toFixed(1));
-  let h = "";
-  for(let tt=1;tt<=3;tt++){
-    const gv = Math.exp(mn + (mx-mn)*tt/4);
-    h += `<line x1="${MP.left}" x2="${w-MP.right}" y1="${y(gv)}" y2="${y(gv)}" stroke="var(--grid)" stroke-width="1"/>`;
-    h += `<text x="${MP.left-8}" y="${y(gv)+4}" text-anchor="end" font-size="9" fill="var(--muted)">${fmtAxis(gv)}</text>`;
-  }
-  const ticks = 6;
-  for(let tt=0;tt<=ticks;tt++){
-    const i = Math.round(i0 + (N-1-i0)*tt/ticks);
-    h += `<text x="${xScale(i,i0,w)}" y="${hgt-6}" text-anchor="middle" font-size="10" fill="var(--muted)">${D.dates[i].slice(2,7).replace("-",".")}</text>`;
-  }
-  const pts = [], cvs = [];
-  for(let i=i0;i<N;i++){ if(series[i]==null) continue; pts.push([+xScale(i,i0,w).toFixed(1), +y(series[i]).toFixed(1)]); cvs.push(D.comp[i] ?? 50); }
-  h += coloredSegs(pts, cvs, 1.7);
-  const chId = "ch_"+cfg.svg, cpId = "cp_"+cfg.svg, ovId = "ov_"+cfg.svg;
-  h += `<line id="${chId}" y1="8" y2="${hgt-22}" stroke="var(--baseline)" stroke-width="1" style="display:none"/>`;
-  h += `<circle id="${cpId}" r="4" fill="var(--sox-line)" stroke="var(--surface-1)" stroke-width="2" style="display:none"/>`;
-  h += `<rect id="${ovId}" x="${MP.left}" y="8" width="${w-MP.left-MP.right}" height="${hgt-30}" fill="transparent"/>`;
-  svg.innerHTML = h;
-  hookTip(svg, ovId, chId, cpId, cfg.tt, i0, w, (i)=>{
-    const v = series[i];
-    if(v==null) return {y: NaN, html: ""};
-    return {y: y(v), col: colorFor(D.comp[i] ?? 50),
-      html:`<b>${cfg.label} ${fmtVal(v)}</b><br>${fmt(D.dates[i])}<br><span style="color:${colorFor(D.comp[i] ?? 50)}">\uc9c0\uc218 ${D.comp[i]==null?"-":D.comp[i].toFixed(1)} \u00b7 ${D.comp[i]==null?"":zoneOf(D.comp[i])}</span>`};
-  });
-}
-function renderPrices(){ PRICE_CHARTS.forEach(renderPrice); }
-function hookTip(svg,ovId,chId,cpId,ttId,i0,w,getP,onClick){
-  const ov=svg.querySelector("#"+ovId), ch=svg.querySelector("#"+chId), cp=svg.querySelector("#"+cpId), tt=document.getElementById(ttId);
+/* ---- charts ---- */
+let months = 36;
+const MP = {left:38, right:12, top:10, bottom:22};
+function sliceIdx(){ if(!months) return 0; return Math.max(0, N - Math.round(months*21)); }
+function xScale(i,i0,w){ return MP.left + (i-i0)/(N-1-i0||1)*(w-MP.left-MP.right); }
+
+function hookTip(svg,ovId,chId,cpId,tt,i0,w,getP,onClick){
+  const ov=svg.querySelector("#"+ovId), ch=svg.querySelector("#"+chId), cp=svg.querySelector("#"+cpId);
   const box = svg.parentElement;
   const idxAt = e => {
     const r = svg.getBoundingClientRect();
@@ -400,49 +300,112 @@ function hookTip(svg,ovId,chId,cpId,ttId,i0,w,getP,onClick){
   if(onClick) ov.addEventListener("click", e=>onClick(idxAt(e)));
   ov.addEventListener("mousemove",e=>{
     let i = idxAt(e);
-    while(i>i0 && getP(i).y!==getP(i).y) i--;
     const p = getP(i); if(p.y!==p.y) return;
     const x = xScale(i,i0,w);
     ch.setAttribute("x1",x); ch.setAttribute("x2",x); ch.style.display="";
     cp.setAttribute("cx",x); cp.setAttribute("cy",p.y); if(p.col) cp.setAttribute("fill",p.col); cp.style.display="";
     tt.innerHTML = p.html; tt.style.display="block";
-    const bw = box.clientWidth;
-    tt.style.left = Math.min(bw-170, Math.max(0, x+14)) + "px";
+    tt.style.left = Math.min(box.clientWidth-170, Math.max(0, x+14)) + "px";
     tt.style.top = Math.max(0, p.y-30) + "px";
   });
   ov.addEventListener("mouseleave",()=>{ ch.style.display="none"; cp.style.display="none"; tt.style.display="none"; });
 }
 
-document.getElementById("rangebar").addEventListener("click",e=>{
-  if(e.target.tagName!=="BUTTON") return;
-  months = +e.target.dataset.m;
-  document.querySelectorAll("#rangebar button").forEach(b=>b.classList.toggle("on",b===e.target));
-  renderMain(); renderPrices();
-});
+function renderMain(){
+  const svg = document.getElementById("mainChart");
+  const w = svg.clientWidth, hgt = 320;
+  svg.setAttribute("viewBox",`0 0 ${w} ${hgt}`);
+  const i0 = sliceIdx();
+  const y = v => MP.top + (100-v)/100*(hgt-MP.top-MP.bottom);
+  let h = "";
+  h += `<rect x="${MP.left}" y="${y(100)}" width="${w-MP.left-MP.right}" height="${y(55)-y(100)}" fill="var(--greed-wash)"/>`;
+  h += `<rect x="${MP.left}" y="${y(45)}" width="${w-MP.left-MP.right}" height="${y(0)-y(45)}" fill="var(--fear-wash)"/>`;
+  for(const g of [0,25,45,55,75,100]){
+    h += `<line x1="${MP.left}" x2="${w-MP.right}" y1="${y(g)}" y2="${y(g)}" stroke="var(--grid)" stroke-width="1"/>`;
+    h += `<text x="${MP.left-8}" y="${y(g)+4}" text-anchor="end" font-size="10" fill="var(--muted)">${g}</text>`;
+  }
+  for(let t=0;t<=6;t++){
+    const i = Math.round(i0 + (N-1-i0)*t/6);
+    h += `<text x="${xScale(i,i0,w)}" y="${hgt-6}" text-anchor="middle" font-size="10" fill="var(--muted)">${D.dates[i].slice(2,7).replace("-",".")}</text>`;
+  }
+  for(const k in SHOW){
+    if(!SHOW[k] || !D[k]) continue;
+    let p2 = "";
+    for(let i=i0;i<N;i++){ if(D[k][i]==null) continue; p2 += (p2?"L":"M") + xScale(i,i0,w).toFixed(1) + "," + y(D[k][i]).toFixed(1); }
+    h += `<path d="${p2}" fill="none" stroke="${IND_COLORS[k]}" stroke-width="1.3" opacity="0.8" stroke-linejoin="round"/>`;
+  }
+  const pts = [], cvs = [];
+  for(let i=i0;i<N;i++){ if(D.comp[i]==null) continue; pts.push([+xScale(i,i0,w).toFixed(1), +y(D.comp[i]).toFixed(1)]); cvs.push(D.comp[i]); }
+  h += coloredSegs(pts, cvs, 2);
+  if(SEL!=null && SEL>=i0){
+    const sx = xScale(SEL,i0,w).toFixed(1);
+    h += `<line x1="${sx}" x2="${sx}" y1="${MP.top}" y2="${hgt-MP.bottom}" stroke="var(--ink-1)" stroke-width="1" stroke-dasharray="3,3" opacity="0.55"/>`;
+  }
+  h += `<text x="${w-MP.right}" y="${y(87)+3}" text-anchor="end" font-size="10" fill="var(--greed-2)" opacity="0.8">극단적 탐욕</text>`;
+  h += `<text x="${w-MP.right}" y="${y(12)+3}" text-anchor="end" font-size="10" fill="var(--fear-2)" opacity="0.8">극단적 공포</text>`;
+  h += `<line id="chM" y1="${MP.top}" y2="${hgt-MP.bottom}" stroke="var(--baseline)" stroke-width="1" style="display:none"/>`;
+  h += `<circle id="cpM" r="4" fill="var(--line)" stroke="var(--surface-1)" stroke-width="2" style="display:none"/>`;
+  h += `<rect id="ovM" x="${MP.left}" y="${MP.top}" width="${w-MP.left-MP.right}" height="${hgt-MP.top-MP.bottom}" fill="transparent"/>`;
+  svg.innerHTML = h;
+  const fmt0 = v => CFG.charts[0].dp===0 ? Math.round(v).toLocaleString() : v.toFixed(CFG.charts[0].dp);
+  hookTip(svg,"ovM","chM","cpM",document.getElementById("ttMain"),i0,w,(i)=>({
+    y: y(D.comp[i]), col: colorFor(D.comp[i]),
+    html:`<b style="color:${colorFor(D.comp[i])}">${D.comp[i].toFixed(1)} · ${zoneOf(D.comp[i])}</b><br>${fmt(D.dates[i])}<br><span style="color:var(--muted)">${CFG.indexLabel} ${D.px[0][i]==null?"-":fmt0(D.px[0][i])} · 클릭하면 지표 분해</span>`
+  }), (i)=>{ SEL = i; renderMain(); renderTiles(i); });
+}
+
+function renderPrice(ci){
+  const svg = document.getElementById("pxChart"+ci);
+  const w = svg.clientWidth, hgt = 160;
+  svg.setAttribute("viewBox",`0 0 ${w} ${hgt}`);
+  const i0 = sliceIdx();
+  const series = D.px[ci], cfg = CFG.charts[ci];
+  const vis = series.slice(i0).filter(v=>v!=null);
+  if(!vis.length){ svg.innerHTML=""; return; }
+  const lv = vis.map(Math.log);
+  const mn = Math.min(...lv), mx = Math.max(...lv), pad = (mx-mn)*0.05 || 0.01;
+  const y = v => 8 + ((mx+pad)-Math.log(v))/((mx+pad)-(mn-pad))*(hgt-8-22);
+  const fmtVal = v => cfg.dp===0 ? Math.round(v).toLocaleString() : v.toFixed(cfg.dp);
+  const fmtAxis = v => v>=100000 ? Math.round(v/1000)+"k" : (v>=1000 ? (v/1000).toFixed(1)+"k" : (v>=100 ? Math.round(v) : v.toFixed(1)));
+  let h = "";
+  for(let t=1;t<=3;t++){
+    const gv = Math.exp(mn + (mx-mn)*t/4);
+    h += `<line x1="${MP.left}" x2="${w-MP.right}" y1="${y(gv)}" y2="${y(gv)}" stroke="var(--grid)" stroke-width="1"/>`;
+    h += `<text x="${MP.left-8}" y="${y(gv)+4}" text-anchor="end" font-size="9" fill="var(--muted)">${fmtAxis(gv)}</text>`;
+  }
+  for(let t=0;t<=6;t++){
+    const i = Math.round(i0 + (N-1-i0)*t/6);
+    h += `<text x="${xScale(i,i0,w)}" y="${hgt-6}" text-anchor="middle" font-size="10" fill="var(--muted)">${D.dates[i].slice(2,7).replace("-",".")}</text>`;
+  }
+  const pts = [], cvs = [];
+  for(let i=i0;i<N;i++){ if(series[i]==null) continue; pts.push([+xScale(i,i0,w).toFixed(1), +y(series[i]).toFixed(1)]); cvs.push(D.comp[i] ?? 50); }
+  h += coloredSegs(pts, cvs, 1.7);
+  h += `<line id="ch_px${ci}" y1="8" y2="${hgt-22}" stroke="var(--baseline)" stroke-width="1" style="display:none"/>`;
+  h += `<circle id="cp_px${ci}" r="4" fill="var(--alt-line)" stroke="var(--surface-1)" stroke-width="2" style="display:none"/>`;
+  h += `<rect id="ov_px${ci}" x="${MP.left}" y="8" width="${w-MP.left-MP.right}" height="${hgt-30}" fill="transparent"/>`;
+  svg.innerHTML = h;
+  hookTip(svg,"ov_px"+ci,"ch_px"+ci,"cp_px"+ci,document.getElementById("ttPx"+ci),i0,w,(i)=>{
+    const v = series[i];
+    if(v==null) return {y: NaN, html: ""};
+    return {y: y(v), col: colorFor(D.comp[i] ?? 50),
+      html:`<b>${fmtVal(v)}</b><br>${fmt(D.dates[i])}<br><span style="color:${colorFor(D.comp[i] ?? 50)}">지수 ${D.comp[i]==null?"-":D.comp[i].toFixed(1)} · ${D.comp[i]==null?"":zoneOf(D.comp[i])}</span>`};
+  });
+}
+function renderPrices(){ CFG.charts.forEach((c,i)=>renderPrice(i)); }
 
 /* ---- tiles ---- */
-const TILES = [
-  ["momentum","주가 모멘텀","SOX vs 125일 이동평균"],
-  ["strength","주가 강도","52주 신고가·신저가 비중"],
-  ["breadth","주가 폭","상승·하락 거래량 (McClellan)"],
-  ["levered","레버리지 ETF 수급","SOXL/SOXS 거래대금 · 풋콜 대체"],
-  ["vol","변동성","VXN vs 50일 평균 (역방향)"],
-  ["safehaven","안전자산 수요","SOX − 미국채(IEF) 20일 수익률"],
-  ["junk","정크본드 수요","하이일드 스프레드 (역방향)"],
-];
 function renderTiles(idx){
-  const el = document.getElementById("tiles");
   document.getElementById("tileDate").textContent = (idx===last ? "현재 기준 · " : "선택 날짜 · ") + fmt(D.dates[idx]);
   document.getElementById("tileReset").style.display = idx===last ? "none" : "inline-block";
-  el.innerHTML = TILES.map(([k,name,sub])=>{
-    const v = D[k][idx];
-    const s90 = D[k].slice(Math.max(0,idx-89), idx+1);
+  document.getElementById("tiles").innerHTML = CFG.tiles.map(([k,name,sub])=>{
+    const v = D[k] ? D[k][idx] : null;
+    const s90 = (D[k]||[]).slice(Math.max(0,idx-89), idx+1);
     const pts = s90.map((x,j)=> x==null?null:[j/(Math.max(1,s90.length-1))*185, 34-(x/100)*30]).filter(Boolean);
     const pth = pts.map((p,j)=>(j?"L":"M")+p[0].toFixed(1)+","+p[1].toFixed(1)).join("");
-    const scoreHtml = v==null ? `<span class="score" style="color:var(--muted)">–</span><span class="zone" style="color:var(--muted)">데이터 없음</span>`
+    const scoreHtml = v==null ? `<span class="score" style="color:var(--muted)">-</span><span class="zone" style="color:var(--muted)">데이터 없음</span>`
       : `<span class="score" style="color:${zoneColor(v)}">${v.toFixed(0)}</span><span class="zone" style="color:${zoneColor(v)}">${zoneOf(v)}</span>`;
     return `<div class="tile">
-      <div class="name"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${IND_COLORS[k]};margin-right:6px;vertical-align:0px;"></span>${name}</div><div class="sub2">${sub}</div>
+      <div class="name"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${IND_COLORS[k]};margin-right:6px;"></span>${name}</div><div class="sub2">${sub}</div>
       <div class="row">${scoreHtml}</div>
       <div class="meter">${v==null?"":`<i style="left:calc(${v}% - 1px)"></i>`}</div>
       <svg class="spark" width="185" height="38" aria-hidden="true"><line x1="0" x2="185" y1="19" y2="19" stroke="var(--grid)"/><path d="${pth}" fill="none" stroke="${IND_COLORS[k]}" stroke-width="1.5"/></svg>
@@ -451,10 +414,10 @@ function renderTiles(idx){
 }
 document.getElementById("tileReset").addEventListener("click", ()=>{ SEL=null; renderMain(); renderTiles(last); });
 
-/* indicator toggles */
+/* ---- indicator toggles ---- */
 (function(){
   const el = document.getElementById("indToggles");
-  el.innerHTML = TILES.map(([k,name])=>`<button data-k="${k}"><span class="dot" style="background:${IND_COLORS[k]}"></span>${name}</button>`).join("");
+  el.innerHTML = CFG.tiles.map(([k,name])=>`<button data-k="${k}"><span class="dot" style="background:${IND_COLORS[k]}"></span>${name}</button>`).join("");
   el.addEventListener("click", e=>{
     const b = e.target.closest("button"); if(!b) return;
     SHOW[b.dataset.k] = !SHOW[b.dataset.k];
@@ -463,11 +426,18 @@ document.getElementById("tileReset").addEventListener("click", ()=>{ SEL=null; r
   });
 })();
 
-/* backtest: computed client-side over selected window */
-let btMonths = 36;
+/* ---- price chart shells ---- */
+(function(){
+  document.getElementById("priceCharts").innerHTML = CFG.charts.map((c,i)=>
+    `<div class="pricechart-label">${c.label}</div>
+     <div class="chartbox"><svg id="pxChart${i}" width="100%" height="160"></svg><div class="tt" id="ttPx${i}"></div></div>`).join("");
+})();
+
+/* ---- backtest (클라이언트 계산) ---- */
+let btMonths = 36, btAsset = 0;
 const BT_H = [20, 60, 120];
-function computeBT(key, i0){
-  const px = D[key], c = D.comp;
+function computeBT(ci, i0){
+  const px = D.px[ci], c = D.comp;
   const zones = [["극단적 공포", v=>v<25],["공포", v=>v>=25&&v<45],["중립", v=>v>=45&&v<55],["탐욕", v=>v>=55&&v<75],["극단적 탐욕", v=>v>=75],["전체", v=>true]];
   return zones.map(([name, test])=>{
     const rets = {20:[], 60:[], 120:[]};
@@ -487,28 +457,41 @@ function computeBT(key, i0){
 function renderBT(){
   const i0 = btMonths ? Math.max(0, N - Math.round(btMonths*21)) : 0;
   const zv = {"극단적 공포":12,"공포":35,"중립":50,"탐욕":65,"극단적 탐욕":88};
-  const s = v => v==null ? "–" : (v>0?"+":"") + v.toFixed(1) + "%";
-  const sw = v => v==null ? "–" : v + "%";
-  for(const key of ["sox","usd","soxl"]){
-    const el = document.getElementById("btT_"+key);
-    if(!el || !D[key]) continue;
-    el.innerHTML = `<tr><th>당시 구간</th><th>표본(일)</th><th>20일 평균</th><th>60일 평균</th><th>120일 평균</th><th>20일 상승비율</th><th>60일 상승비율</th><th>120일 상승비율</th></tr>` +
-      computeBT(key, i0).map(r=>{
-        const dot = r.zone in zv ? `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${colorFor(zv[r.zone])};margin-right:6px;"></span>` : "";
-        return `<tr><td>${dot}${r.zone}</td><td>${r.n}</td><td>${s(r.m20)}</td><td>${s(r.m60)}</td><td>${s(r.m120)}</td><td>${sw(r.w20)}</td><td>${sw(r.w60)}</td><td>${sw(r.w120)}</td></tr>`;
-      }).join("");
-  }
+  const s = v => v==null ? "-" : (v>0?"+":"") + v.toFixed(1) + "%";
+  const sw = v => v==null ? "-" : v + "%";
+  document.getElementById("btTable").innerHTML =
+    `<tr><th>당시 구간</th><th>표본(일)</th><th>20일 평균</th><th>60일 평균</th><th>120일 평균</th><th>20일 상승비율</th><th>60일 상승비율</th><th>120일 상승비율</th></tr>` +
+    computeBT(btAsset, i0).map(r=>{
+      const dot = r.zone in zv ? `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${colorFor(zv[r.zone])};margin-right:6px;"></span>` : "";
+      return `<tr><td>${dot}${r.zone}</td><td>${r.n}</td><td>${s(r.m20)}</td><td>${s(r.m60)}</td><td>${s(r.m120)}</td><td>${sw(r.w20)}</td><td>${sw(r.w60)}</td><td>${sw(r.w120)}</td></tr>`;
+    }).join("");
 }
+(function(){
+  const el = document.getElementById("btAssets");
+  el.innerHTML = CFG.charts.map((c,i)=>`<button data-a="${i}" class="${i===0?"on":""}">${c.label.split(" — ")[0]}</button>`).join("");
+  el.addEventListener("click", e=>{
+    if(e.target.tagName!=="BUTTON") return;
+    btAsset = +e.target.dataset.a;
+    el.querySelectorAll("button").forEach(b=>b.classList.toggle("on", b===e.target));
+    renderBT();
+  });
+})();
 document.getElementById("btRange").addEventListener("click", e=>{
   if(e.target.tagName!=="BUTTON") return;
   btMonths = +e.target.dataset.m;
   document.querySelectorAll("#btRange button").forEach(b=>b.classList.toggle("on", b===e.target));
   renderBT();
 });
-renderBT();
+
+document.getElementById("rangebar").addEventListener("click", e=>{
+  if(e.target.tagName!=="BUTTON") return;
+  months = +e.target.dataset.m;
+  document.querySelectorAll("#rangebar button").forEach(b=>b.classList.toggle("on", b===e.target));
+  renderMain(); renderPrices();
+});
 
 renderTiles(last);
-
+renderBT();
 renderMain(); renderPrices();
 window.addEventListener("resize",()=>{ renderMain(); renderPrices(); });
 </script>
