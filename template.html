@@ -164,7 +164,7 @@ table.bt tr:last-child td{border-bottom:none; color:var(--muted);}
     <h2>구간별 백테스트 — 이후 수익률</h2>
     <div class="desc">해당 구간에 있던 날 기준, 이후 20/60/120거래일 수익률 · 아래 기간 버튼으로 대상 기간 선택 (표본 중복 있음)</div>
     <div class="rangebar" id="btRange">
-      <button data-m="3">3개월</button><button data-m="6">6개월</button><button data-m="12">1년</button><button data-m="36">3년</button><button data-m="60">5년</button><button data-m="120">10년</button><button data-m="0" class="on">전체</button>
+      <button data-m="3">3개월</button><button data-m="6">6개월</button><button data-m="12">1년</button><button data-m="36" class="on">3년</button><button data-m="60">5년</button><button data-m="120">10년</button><button data-m="0">전체</button>
     </div>
     <div class="bt-asset" style="font-size:13px; font-weight:700; margin-top:14px;">SOX 지수</div>
     <table class="bt" id="btT_sox"></table>
@@ -449,7 +449,7 @@ document.getElementById("tileReset").addEventListener("click", ()=>{ SEL=null; r
 })();
 
 /* backtest: computed client-side over selected window */
-let btMonths = 0;
+let btMonths = 36;
 const BT_H = [20, 60, 120];
 function computeBT(key, i0){
   const px = D[key], c = D.comp;
