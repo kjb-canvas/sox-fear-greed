@@ -55,10 +55,18 @@ def get_ndx_constituents():
 
 
 def get_spx_constituents():
-    syms = wiki_tickers("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies", 450)
-    if not syms:
-        raise RuntimeError("S&P500 list unavailable")
-    return syms[:510]
+    cache = "spx/constituents.json"
+    try:
+        syms = wiki_tickers("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies", 450)
+        if syms:
+            os.makedirs("spx", exist_ok=True)
+            json.dump(syms[:510], open(cache, "w"))
+            return syms[:510]
+    except Exception as e:
+        print("SPX wiki fail:", e, file=sys.stderr)
+    if os.path.exists(cache):
+        return json.load(open(cache))
+    raise RuntimeError("S&P500 list unavailable")
 
 
 def get_krx_constituents(index_code, suffix, cache_file):
