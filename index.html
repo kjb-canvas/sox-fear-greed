@@ -13,7 +13,9 @@
 <meta property="og:description" content="시장·섹터별 공포탐욕지수를 한눈에. 매일 자동 갱신.">
 <meta property="og:url" content="https://kjb-canvas.github.io/sox-fear-greed/">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://kjb-canvas.github.io/sox-fear-greed/og.png">
+<meta name="twitter:image" content="https://kjb-canvas.github.io/sox-fear-greed/og.png">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="공포탐욕지수 시리즈">
 <meta name="twitter:description" content="SOX 반도체 · 나스닥100 · 코스피 · 코스닥 공포탐욕지수, 매일 자동 갱신.">
 <script type="application/ld+json">
@@ -67,7 +69,7 @@ footer{max-width:1060px; margin:28px auto 0; padding:20px 16px 0; border-top:1px
 <div class="topbar"><div class="topbar-in">
   <a class="brand" href="./">Fear &amp; Greed 지수 시리즈</a>
   <nav>
-    <a href="./" class="on">홈</a><a href="./sox/">SOX 반도체</a><a href="./nasdaq/">나스닥100</a><a href="./kospi/">코스피</a><a href="./kosdaq/">코스닥</a>
+    <a href="./" class="on">홈</a><a href="./sox/">SOX 반도체</a><a href="./nasdaq/">나스닥100</a><a href="./spx/">S&amp;P500</a><a href="./kospi/">코스피</a><a href="./kosdaq/">코스닥</a><a href="./compare/">비교</a>
   </nav>
 </div></div>
 
@@ -77,6 +79,14 @@ footer{max-width:1060px; margin:28px auto 0; padding:20px 16px 0; border-top:1px
   모멘텀, 52주 신고가·신저가, 거래량 폭, 레버리지 상품 수급 등 심리 지표를 0~100으로 종합해 매일 자동 갱신합니다.</div>
 
   <div class="cards" id="cards"></div>
+
+  <div class="about">
+    <h2>더 알아보기</h2>
+    <a href="./compare/" style="color:var(--ink-1)">전체 지수 비교 차트</a> ·
+    <a href="./guide-how-to-read.html" style="color:var(--ink-1)">공포탐욕지수 읽는 법</a> ·
+    <a href="./guide-leverage-etf.html" style="color:var(--ink-1)">레버리지 ETF와 변동성 드래그</a> ·
+    <a href="./guide-contrarian.html" style="color:var(--ink-1)">역발상 투자와 백테스트 해석</a>
+  </div>
 
   <div class="about">
     <h2>이 지표를 읽는 법</h2>
@@ -93,7 +103,7 @@ footer{max-width:1060px; margin:28px auto 0; padding:20px 16px 0; border-top:1px
 </footer>
 
 <script>
-const SUMS = [{"key": "sox", "name": "SOX 반도체", "value": 16.8, "zone": "극단적 공포", "prev": 23.0, "date": "2026.07.29"}, {"key": "nasdaq", "name": "나스닥100", "value": 24.2, "zone": "극단적 공포", "prev": 30.7, "date": "2026.07.29"}, {"key": "kospi", "name": "코스피", "value": 23.6, "zone": "극단적 공포", "prev": 16.9, "date": "2026.07.30"}, {"key": "kosdaq", "name": "코스닥", "value": 15.1, "zone": "극단적 공포", "prev": 16.6, "date": "2026.07.30"}];
+const SUMS = [{"key": "sox", "name": "SOX 반도체", "value": 16.8, "zone": "극단적 공포", "prev": 23.3, "date": "2026.07.29"}, {"key": "nasdaq", "name": "나스닥100", "value": 24.2, "zone": "극단적 공포", "prev": 30.7, "date": "2026.07.29"}, {"key": "kospi", "name": "코스피", "value": 23.0, "zone": "극단적 공포", "prev": 16.9, "date": "2026.07.30"}, {"key": "kosdaq", "name": "코스닥", "value": 15.1, "zone": "극단적 공포", "prev": 16.6, "date": "2026.07.30"}];
 function zoneColor(v){
   const s = getComputedStyle(document.documentElement);
   if(v<25) return s.getPropertyValue("--fear-2");
@@ -130,6 +140,10 @@ document.getElementById("cards").innerHTML = SUMS.map(s=>{
     <div class="delta">전일 대비 ${dTxt}</div>
   </a>`;
 }).join("");
+</script>
+<script>
+const GOAT = ""; // GoatCounter 코드 설정 시 방문 통계 활성화
+if (GOAT) { const s = document.createElement("script"); s.dataset.goatcounter = `https://${GOAT}.goatcounter.com/count`; s.src = "//gc.zgo.at/count.js"; s.async = true; document.body.appendChild(s); }
 </script>
 </body>
 </html>
