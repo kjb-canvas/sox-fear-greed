@@ -162,7 +162,7 @@ table.bt tr:last-child td{border-bottom:none; color:var(--muted);}
 
   <div class="card">
     <h2>구간별 백테스트 — 이후 수익률</h2>
-    <div class="desc">해당 구간에 있던 날 기준, 이후 20/60거래일 수익률 · 아래 기간 버튼으로 대상 기간 선택 (표본 중복 있음)</div>
+    <div class="desc">해당 구간에 있던 날 기준, 이후 20/60/120거래일 수익률 · 아래 기간 버튼으로 대상 기간 선택 (표본 중복 있음)</div>
     <div class="rangebar" id="btRange">
       <button data-m="3">3개월</button><button data-m="6">6개월</button><button data-m="12">1년</button><button data-m="36">3년</button><button data-m="60">5년</button><button data-m="120">10년</button><button data-m="0" class="on">전체</button>
     </div>
@@ -450,32 +450,37 @@ document.getElementById("tileReset").addEventListener("click", ()=>{ SEL=null; r
 
 /* backtest: computed client-side over selected window */
 let btMonths = 0;
+const BT_H = [20, 60, 120];
 function computeBT(key, i0){
   const px = D[key], c = D.comp;
   const zones = [["극단적 공포", v=>v<25],["공포", v=>v>=25&&v<45],["중립", v=>v>=45&&v<55],["탐욕", v=>v>=55&&v<75],["극단적 탐욕", v=>v>=75],["전체", v=>true]];
   return zones.map(([name, test])=>{
-    const r20=[], r60=[];
+    const rets = {20:[], 60:[], 120:[]};
+    let n = 0;
     for(let i=i0;i<N;i++){
       if(c[i]==null || px[i]==null || !test(c[i])) continue;
-      if(i+20<N && px[i+20]!=null) r20.push(px[i+20]/px[i]-1);
-      if(i+60<N && px[i+60]!=null) r60.push(px[i+60]/px[i]-1);
+      n++;
+      for(const h of BT_H){ if(i+h<N && px[i+h]!=null) rets[h].push(px[i+h]/px[i]-1); }
     }
     const mean = a => a.length ? 100*a.reduce((x,y)=>x+y,0)/a.length : null;
     const win = a => a.length ? Math.round(100*a.filter(x=>x>0).length/a.length) : null;
-    return {zone:name, n:r60.length, m20:mean(r20), m60:mean(r60), w60:win(r60)};
+    const row = {zone:name, n};
+    for(const h of BT_H){ row["m"+h] = mean(rets[h]); row["w"+h] = win(rets[h]); }
+    return row;
   });
 }
 function renderBT(){
   const i0 = btMonths ? Math.max(0, N - Math.round(btMonths*21)) : 0;
   const zv = {"극단적 공포":12,"공포":35,"중립":50,"탐욕":65,"극단적 탐욕":88};
   const s = v => v==null ? "–" : (v>0?"+":"") + v.toFixed(1) + "%";
+  const sw = v => v==null ? "–" : v + "%";
   for(const key of ["sox","usd","soxl"]){
     const el = document.getElementById("btT_"+key);
     if(!el || !D[key]) continue;
-    el.innerHTML = `<tr><th>당시 구간</th><th>표본(일)</th><th>20일 평균</th><th>60일 평균</th><th>60일 상승비율</th></tr>` +
+    el.innerHTML = `<tr><th>당시 구간</th><th>표본(일)</th><th>20일 평균</th><th>60일 평균</th><th>120일 평균</th><th>20일 상승비율</th><th>60일 상승비율</th><th>120일 상승비율</th></tr>` +
       computeBT(key, i0).map(r=>{
         const dot = r.zone in zv ? `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${colorFor(zv[r.zone])};margin-right:6px;"></span>` : "";
-        return `<tr><td>${dot}${r.zone}</td><td>${r.n}</td><td>${s(r.m20)}</td><td>${s(r.m60)}</td><td>${r.w60==null?"–":r.w60+"%"}</td></tr>`;
+        return `<tr><td>${dot}${r.zone}</td><td>${r.n}</td><td>${s(r.m20)}</td><td>${s(r.m60)}</td><td>${s(r.m120)}</td><td>${sw(r.w20)}</td><td>${sw(r.w60)}</td><td>${sw(r.w120)}</td></tr>`;
       }).join("");
   }
 }
