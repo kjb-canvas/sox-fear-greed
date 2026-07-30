@@ -15,12 +15,12 @@ import yfinance as yf
 CONSTITUENTS = ["AMD","ADI","AMAT","ARM","ASML","ALAB","AVGO","COHR","CRDO","ENTG",
                 "GFS","INTC","KLAC","LRCX","MTSI","MRVL","MCHP","MU","MPWR","NVMI",
                 "NVDA","NXPI","ON","QRVO","QCOM","RMBS","SWKS","TSM","TER","TXN"]
-AUX = ["^SOX","^VXN","IEF","SOXL","SOXS"]
+AUX = ["^SOX","^VXN","IEF","SOXL","SOXS","USD"]
 
 def fetch(tickers, tries=3):
     for a in range(tries):
         try:
-            px = yf.download(tickers, period="6y", auto_adjust=False, progress=False, threads=True)
+            px = yf.download(tickers, period="12y", auto_adjust=False, progress=False, threads=True)
             if px["Adj Close"].dropna(how="all").shape[0] > 500:
                 return px
         except Exception as e:
@@ -88,30 +88,43 @@ for c in ind.columns:
     scores[c] = roll_pct(ind[c], minp=60 if c == "junk" else 126)
 scores["composite"] = scores.mean(axis=1, skipna=True).where(scores.notna().sum(axis=1) >= 5)
 
-start = idx[-1] - pd.DateOffset(years=3)
-out = scores.join(sox.rename("sox")).loc[start:].round(1)
+out = scores.join(sox.rename("sox"))
+out = out[out.composite.notna()].round(1)   # 종합지수가 계산되는 전 구간 표시
 cur = out.composite.iloc[-1]
-assert 0 <= cur <= 100 and out.composite.notna().mean() > 0.9, "sanity check failed"
+assert 0 <= cur <= 100 and len(out) > 1500, "sanity check failed"
 
-# ---- 백테스트 ----
-c, s = out.composite, out.sox
+# ---- 백테스트 (SOX / USD 2x / SOXL 3x) ----
+c = out.composite
+px_bt = {"sox": out.sox,
+         "usd": adj["USD"].reindex(out.index),
+         "soxl": adj["SOXL"].reindex(out.index)}
 zones = [("극단적 공포", c < 25), ("공포", (c >= 25) & (c < 45)), ("중립", (c >= 45) & (c < 55)),
          ("탐욕", (c >= 55) & (c < 75)), ("극단적 탐욕", c >= 75), ("전체", c.notna())]
 bt = []
 for name, mask in zones:
     row = {"zone": name}
-    for h in [20, 60]:
-        fwd = s.shift(-h) / s - 1
+    fwd20 = px_bt["sox"].shift(-20) / px_bt["sox"] - 1
+    v20 = fwd20[mask].dropna()
+    fwd60s = px_bt["sox"].shift(-60) / px_bt["sox"] - 1
+    v60s = fwd60s[mask].dropna()
+    row["n"] = int(len(v60s))
+    row["sox20"] = round(100 * v20.mean(), 1) if len(v20) else None
+    row["sox60"] = round(100 * v60s.mean(), 1) if len(v60s) else None
+    row["win60"] = round(100 * (v60s > 0).mean(), 0) if len(v60s) else None
+    for k in ["usd", "soxl"]:
+        fwd = px_bt[k].shift(-60) / px_bt[k] - 1
         v = fwd[mask].dropna()
-        row[f"n{h}"] = int(len(v))
-        row[f"mean{h}"] = round(100 * v.mean(), 1) if len(v) else 0
-        row[f"win{h}"] = round(100 * (v > 0).mean(), 0) if len(v) else 0
+        row[k + "60"] = round(100 * v.mean(), 1) if len(v) else None
     bt.append(row)
 
 # ---- index.html 생성 ----
 data = {"dates": [d.strftime("%Y-%m-%d") for d in out.index],
         "comp": [None if pd.isna(v) else round(v, 1) for v in out.composite],
         "sox": [round(v, 1) for v in out.sox]}
+usd_px = adj["USD"].reindex(out.index)
+soxl_px = adj["SOXL"].reindex(out.index)
+data["usd"] = [None if pd.isna(v) else round(v, 2) for v in usd_px]
+data["soxl"] = [None if pd.isna(v) else round(v, 2) for v in soxl_px]
 for k in ["momentum","strength","breadth","levered","vol","safehaven","junk"]:
     data[k] = [None if pd.isna(v) else round(v, 1) for v in out[k]]
 
