@@ -229,6 +229,11 @@ def get_cnn_series():
         return {pd.to_datetime(p["x"], unit="ms").strftime("%Y-%m-%d"): round(float(p["y"]), 1) for p in pts}
     except Exception as e:
         print("cnn fetch fail:", e, file=sys.stderr)
+    try:
+        df = pd.read_csv("https://raw.githubusercontent.com/whit3rabbit/fear-greed-data/main/fear-greed.csv")
+        return {str(d)[:10]: round(float(v), 1) for d, v in zip(df["Date"], df["Fear Greed"]) if pd.notna(v)}
+    except Exception as e:
+        print("cnn mirror fail:", e, file=sys.stderr)
         return None
 
 
