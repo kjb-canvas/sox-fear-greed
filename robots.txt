@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kjb-canvas.github.io/sox-fear-greed/sitemap.xml

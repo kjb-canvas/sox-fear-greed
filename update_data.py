@@ -133,4 +133,11 @@ html = (tpl.replace("__DATA__", json.dumps(data, ensure_ascii=False))
            .replace("__BT__", json.dumps(bt, ensure_ascii=False))
            .replace("__LASTDATE__", out.index[-1].strftime("%Y.%m.%d")))
 open("index.html", "w", encoding="utf-8").write(html)
+
+sitemap = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+           '  <url><loc>https://kjb-canvas.github.io/sox-fear-greed/</loc>'
+           f'<lastmod>{out.index[-1].strftime("%Y-%m-%d")}</lastmod>'
+           '<changefreq>daily</changefreq></url>\n</urlset>\n')
+open("sitemap.xml", "w", encoding="utf-8").write(sitemap)
 print("OK", out.index[-1].date(), "composite:", cur)
