@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://kjb-canvas.github.io/sox-fear-greed/</loc><lastmod>2026-07-29</lastmod><changefreq>daily</changefreq></url>
-  <url><loc>https://kjb-canvas.github.io/sox-fear-greed/sox/</loc><lastmod>2026-07-29</lastmod><changefreq>daily</changefreq></url>
-  <url><loc>https://kjb-canvas.github.io/sox-fear-greed/nasdaq/</loc><lastmod>2026-07-29</lastmod><changefreq>daily</changefreq></url>
+  <url><loc>https://kjb-canvas.github.io/sox-fear-greed/</loc><lastmod>2026-07-30</lastmod><changefreq>daily</changefreq></url>
+  <url><loc>https://kjb-canvas.github.io/sox-fear-greed/sox/</loc><lastmod>2026-07-30</lastmod><changefreq>daily</changefreq></url>
+  <url><loc>https://kjb-canvas.github.io/sox-fear-greed/nasdaq/</loc><lastmod>2026-07-30</lastmod><changefreq>daily</changefreq></url>
+  <url><loc>https://kjb-canvas.github.io/sox-fear-greed/kospi/</loc><lastmod>2026-07-30</lastmod><changefreq>daily</changefreq></url>
+  <url><loc>https://kjb-canvas.github.io/sox-fear-greed/kosdaq/</loc><lastmod>2026-07-30</lastmod><changefreq>daily</changefreq></url>
 </urlset>
