@@ -103,7 +103,7 @@ footer{max-width:1060px; margin:28px auto 0; padding:20px 16px 0; border-top:1px
 </footer>
 
 <script>
-const SUMS = [{"key": "sox", "name": "SOX 반도체", "value": 46.6, "zone": "중립", "prev": 60.7, "date": "2026.08.18"}, {"key": "nasdaq", "name": "나스닥100", "value": 62.8, "zone": "탐욕", "prev": 71.4, "date": "2026.08.18"}, {"key": "spx", "name": "S&P500", "value": 58.7, "zone": "탐욕", "prev": 72.1, "date": "2026.08.18"}, {"key": "kospi", "name": "코스피", "value": 41.2, "zone": "공포", "prev": 48.7, "date": "2026.08.19"}, {"key": "kosdaq", "name": "코스닥", "value": 50.2, "zone": "중립", "prev": 50.3, "date": "2026.08.19"}];
+const SUMS = [{"key": "sox", "name": "SOX 반도체", "value": 42.7, "zone": "공포", "prev": 48.4, "date": "2026.08.19"}, {"key": "nasdaq", "name": "나스닥100", "value": 63.6, "zone": "탐욕", "prev": 63.1, "date": "2026.08.19"}, {"key": "spx", "name": "S&P500", "value": 61.1, "zone": "탐욕", "prev": 58.0, "date": "2026.08.19"}, {"key": "kospi", "name": "코스피", "value": 41.2, "zone": "공포", "prev": 48.7, "date": "2026.08.19"}, {"key": "kosdaq", "name": "코스닥", "value": 50.2, "zone": "중립", "prev": 50.3, "date": "2026.08.19"}];
 function zoneColor(v){
   const s = getComputedStyle(document.documentElement);
   if(v<25) return s.getPropertyValue("--fear-2");
